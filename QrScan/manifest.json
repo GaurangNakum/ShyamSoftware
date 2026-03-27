@@ -1,7 +1,7 @@
 {
-  "name": "WeightQrScan",
-  "short_name": "WeightQrScan",
-  "description": "Fast QR weight scanner with customizable column mapping",
+  "name": "QrScan",
+  "short_name": "QrScan",
+  "description": "Fast weight QR scanner with customizable column mapping",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

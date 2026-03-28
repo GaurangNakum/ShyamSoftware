@@ -1335,10 +1335,41 @@
   <!-- INSTALL BAR -->
   <div class="install-bar show" id="installBar">
     <div class="install-text">
-      <strong>Install App</strong>
-      <span>Add to Home Screen for offline access</span>
+      <strong id="installTitle">Install App</strong>
+      <span id="installSubtitle">Add to Home Screen for offline access</span>
     </div>
     <button class="install-btn" id="installBtn">Install</button>
+  </div>
+
+  <!-- iOS INSTALL HELP MODAL -->
+  <div class="modal-overlay" id="iosHelpModal" onclick="closeIosHelp(event)">
+    <div class="settings-modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title">Install on iPhone / iPad</div>
+        <button class="close-modal-btn" onclick="closeIosHelp()">✕</button>
+      </div>
+      <div class="modal-content" style="padding: 24px; text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 20px;">📲</div>
+        <p style="font-size: 15px; line-height: 1.6; color: var(--text); margin-bottom: 24px;">
+          To install this app on your iPhone, follow these simple steps:
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 16px; text-align: left;">
+          <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div style="background: var(--accent); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">1</div>
+            <p style="font-size: 14px;">Tap the <strong>Share</strong> button <span style="display: inline-block; background: #f0f0f0; padding: 4px; border-radius: 4px;">⎋</span> at the bottom of Safari.</p>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div style="background: var(--accent); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">2</div>
+            <p style="font-size: 14px;">Scroll down and tap <strong>"Add to Home Screen"</strong>.</p>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div style="background: var(--accent); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">3</div>
+            <p style="font-size: 14px;">Tap <strong>Add</strong> in the top-right corner.</p>
+          </div>
+        </div>
+        <button class="install-btn" onclick="closeIosHelp()" style="margin-top: 32px; width: 100%;">Got it!</button>
+      </div>
+    </div>
   </div>
 
   <!-- GLOBAL STICKY FOOTER -->
@@ -1412,6 +1443,8 @@
 
     // ── PWA INSTALL PROMPT ──
     let deferredPrompt = null;
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
     window.addEventListener('beforeinstallprompt', e => {
       e.preventDefault();
       deferredPrompt = e;
@@ -1421,17 +1454,42 @@
       }
     });
 
+    // iOS Specific UI Logic
+    if (isIOS) {
+      document.getElementById('installTitle').innerText = 'Add to Home Screen';
+      document.getElementById('installSubtitle').innerText = 'Tap to see how to install on iPhone';
+      document.getElementById('installBtn').innerText = 'How to Install';
+      
+      const activeTab = document.querySelector('.tab.active');
+      if (activeTab && activeTab.dataset.tab === 'home') {
+        document.getElementById('installBar').classList.add('show');
+      }
+    }
+
     document.getElementById('installBtn').addEventListener('click', async () => {
+      if (isIOS) {
+        openIosHelp();
+        return;
+      }
+
       if (!deferredPrompt) return;
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       deferredPrompt = null;
-      // Note: We keep the bar showing as requested, but the browser prompt will only work once per life cycle.
     });
 
     window.addEventListener('appinstalled', () => {
       // Keep showing as requested
     });
+
+    function openIosHelp() {
+      document.getElementById('iosHelpModal').classList.add('show');
+    }
+
+    function closeIosHelp(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('iosHelpModal').classList.remove('show');
+    }
 
 
     // ── FIELD OPTIONS ──

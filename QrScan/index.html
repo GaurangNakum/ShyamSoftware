@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="images/Logo.png" type="image/png" />
+  <link rel="icon" href="images/Logo192.png" type="image/png" />
   <title>QrScan</title>
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
@@ -528,59 +528,91 @@
       background: var(--accent);
       margin: 14px 16px 0;
       border-radius: 16px;
-      padding: 18px 20px;
+      padding: 16px 20px;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .total-info {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .total-row {
+      display: flex;
       justify-content: space-between;
-      box-shadow: 0 4px 20px rgba(26, 107, 60, 0.25);
+      align-items: center;
+    }
+
+    .main-total {
+      margin-top: 4px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .total-label {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 12px;
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 11px;
       font-weight: 500;
       letter-spacing: .5px;
       text-transform: uppercase;
-      margin-bottom: 4px;
+    }
+
+    .total-val-small {
+      font-family: 'DM Mono', monospace;
+      font-size: 20px;
+      font-weight: 500;
+      color: #fff;
     }
 
     .total-val {
       font-family: 'DM Mono', monospace;
-      font-size: 34px;
-      font-weight: 500;
+      font-size: 32px;
+      font-weight: 600;
       color: #fff;
       line-height: 1;
     }
 
     .total-unit {
-      font-size: 15px;
-      color: rgba(255, 255, 255, 0.6);
-      margin-left: 4px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-left: 3px;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .total-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 2px;
     }
 
     .scan-count-badge {
       display: inline-block;
-      background: rgba(0, 0, 0, 0.15);
+      background: rgba(255, 255, 255, 0.1);
       color: rgba(255, 255, 255, 0.9);
       font-family: 'DM Sans', sans-serif;
       font-size: 12px;
       font-weight: 600;
       padding: 4px 10px;
-      border-radius: 12px;
-      margin-top: 8px;
+      border-radius: 10px;
     }
 
     .clear-btn {
       background: rgba(255, 255, 255, 0.15);
-      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       color: #fff;
       font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
-      padding: 10px 18px;
-      border-radius: 10px;
+      padding: 8px 16px;
+      border-radius: 8px;
       cursor: pointer;
       white-space: nowrap;
+      transition: background 0.2s;
     }
 
     .clear-btn:active {
@@ -674,7 +706,7 @@
     }
 
     .items-list {
-      padding: 0 16px 70px;
+      padding: 0 16px 120px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -809,18 +841,18 @@
     /* INSTALL BAR */
     .install-bar {
       position: fixed;
-      bottom: 0;
+      bottom: 43px;
       left: 0;
       right: 0;
       background: var(--white);
       border-top: 1px solid var(--border);
-      padding: 14px 16px;
+      padding: 12px 16px;
       display: none;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
-      z-index: 200;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+      z-index: 140;
     }
 
     .install-bar.show {
@@ -1181,7 +1213,7 @@
   <!-- HEADER -->
   <header>
     <div class="logo-section">
-      <img src="images/Logo.png" alt="Logo" class="logo-img">
+      <img src="images/Logo192.png" alt="Logo" class="logo-img">
       <div class="logo-text">
         <div class="logo-title">QrScan</div>
         <div class="logo-subtitle">Provided By <span onclick="window.open('https://shyamsoftware.com', '_blank')"
@@ -1204,7 +1236,7 @@
     <div class="home-page">
 
       <!-- Section 1: Tutorial (How to use PWA) -->
-      <a href="" target="_blank" class="guide-section">
+      <a href="https://www.youtube.com/shorts/A7Tc4GRGp8Q?si=vWBZiUebScqyB2pp" target="_blank" class="guide-section">
         <div class="guide-header">
           <div class="guide-title">How to use QrScan 🚀</div>
           <div class="guide-badge">TUTORIAL</div>
@@ -1260,12 +1292,24 @@
 
     <!-- TOTAL -->
     <div class="total-card">
-      <div>
-        <div class="total-label">Total Net Weight</div>
-        <div class="total-val" id="totalVal">0.000<span class="total-unit">g</span></div>
-        <div class="scan-count-badge" id="scanCount">0 items scanned</div>
+      <div class="total-info">
+        <div class="total-row">
+          <div class="total-label">Gross Total</div>
+          <div class="total-val-small" id="totalGross">0.000<span class="total-unit">g</span></div>
+        </div>
+        <div class="total-row">
+          <div class="total-label">Less Total</div>
+          <div class="total-val-small" id="totalLess">0.000<span class="total-unit">g</span></div>
+        </div>
+        <div class="total-row main-total">
+          <div class="total-label">Net Total</div>
+          <div class="total-val" id="totalVal">0.000<span class="total-unit">g</span></div>
+        </div>
       </div>
-      <button class="clear-btn" onclick="clearAll()">Clear</button>
+      <div class="total-footer">
+        <div class="scan-count-badge" id="scanCount">0 items scanned</div>
+        <button class="clear-btn" onclick="clearAll()">Clear</button>
+      </div>
     </div>
 
     <!-- LAST SCAN -->
@@ -1289,7 +1333,7 @@
   </div>
 
   <!-- INSTALL BAR -->
-  <div class="install-bar" id="installBar">
+  <div class="install-bar show" id="installBar">
     <div class="install-text">
       <strong>Install App</strong>
       <span>Add to Home Screen for offline access</span>
@@ -1299,7 +1343,7 @@
 
   <!-- GLOBAL STICKY FOOTER -->
   <div class="app-footer sticky-pos">
-    Powered by <img src="images/Logo.png" alt="Logo" class="footer-logo"><strong
+    Powered by <img src="images/Logo192.png" alt="Logo" class="footer-logo"><strong
       onclick="window.open('https://shyamsoftware.com', '_blank')"
       style="cursor: pointer; text-decoration: underline;">Shyam Software</strong>
   </div>
@@ -1357,6 +1401,8 @@
 
   <div class="toast" id="toast"></div>
 
+  <div class="toast" id="toast"></div>
+
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
   <script>
     // ── SERVICE WORKER ──
@@ -1369,7 +1415,10 @@
     window.addEventListener('beforeinstallprompt', e => {
       e.preventDefault();
       deferredPrompt = e;
-      document.getElementById('installBar').classList.add('show');
+      const activeTab = document.querySelector('.tab.active');
+      if (activeTab && activeTab.dataset.tab === 'home') {
+        document.getElementById('installBar').classList.add('show');
+      }
     });
 
     document.getElementById('installBtn').addEventListener('click', async () => {
@@ -1377,12 +1426,13 @@
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       deferredPrompt = null;
-      document.getElementById('installBar').classList.remove('show');
+      // Note: We keep the bar showing as requested, but the browser prompt will only work once per life cycle.
     });
 
     window.addEventListener('appinstalled', () => {
-      document.getElementById('installBar').classList.remove('show');
+      // Keep showing as requested
     });
+
 
     // ── FIELD OPTIONS ──
     const FIELD_OPTIONS = {
@@ -1606,6 +1656,16 @@
         c.classList.remove('active');
       });
 
+      // Show/Hide Install Bar
+      const installBar = document.getElementById('installBar');
+      if (installBar) {
+        if (tabName === 'home') {
+          installBar.classList.add('show');
+        } else {
+          installBar.classList.remove('show');
+        }
+      }
+
       if (tabName === 'home') {
         document.getElementById('homeTab').classList.add('active');
       } else if (tabName === 'scanner') {
@@ -1805,8 +1865,13 @@
 
     // ── RENDER ──
     function render() {
-      const total = items.reduce((s, i) => s + i.net, 0);
-      document.getElementById('totalVal').innerHTML = `${total.toFixed(3)}<span class="total-unit">g</span>`;
+      const totalNet = items.reduce((s, i) => s + i.net, 0);
+      const totalGross = items.reduce((s, i) => s + i.gross, 0);
+      const totalLess = items.reduce((s, i) => s + i.less, 0);
+
+      document.getElementById('totalVal').innerHTML = `${totalNet.toFixed(3)}<span class="total-unit">g</span>`;
+      document.getElementById('totalGross').innerHTML = `${totalGross.toFixed(3)}<span class="total-unit">g</span>`;
+      document.getElementById('totalLess').innerHTML = `${totalLess.toFixed(3)}<span class="total-unit">g</span>`;
       document.getElementById('scanCount').textContent = `${items.length} item${items.length !== 1 ? 's' : ''} scanned`;
 
       const list = document.getElementById('itemsList');
@@ -1903,9 +1968,13 @@
       csv += "\n";
 
       // Rows
+      let totalGross = 0;
+      let totalLess = 0;
       let totalNet = 0;
       items.forEach((item, i) => {
         const sr = items.length - i;
+        totalGross += item.gross;
+        totalLess += item.less;
         totalNet += item.net;
         let row = `${sr},"${item.name}",${item.gross.toFixed(3)},${item.less.toFixed(3)},${item.net.toFixed(3)},"${item.scannedAt || ''}"`;
         extraFieldsArr.forEach(f => {
@@ -1915,7 +1984,7 @@
       });
 
       // Footer
-      csv += `\n,TOTAL,,,${totalNet.toFixed(3)},\n`;
+      csv += `\n,TOTAL,${totalGross.toFixed(3)},${totalLess.toFixed(3)},${totalNet.toFixed(3)},\n`;
 
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);

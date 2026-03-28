@@ -1,9 +1,10 @@
-const CACHE = 'weighscan-v1';
+const CACHE = 'weighscan-v3';
 const FILES = [
   './',
   './index.html',
   './manifest.json',
-  './images/Logo.png',
+  './images/Logo192.png',
+  './images/Logo512.png',
   'https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js',
   'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap'
 ];

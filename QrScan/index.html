@@ -1321,7 +1321,11 @@
     <!-- LIST -->
     <div class="list-header">
       <div class="list-title">Scanned Items</div>
-      <button class="export-btn" onclick="exportCSV()">⬇ Export CSV</button>
+      <div style="display: flex; gap: 8px;">
+        <button class="export-btn" onclick="exportCSV()">⬇ CSV</button>
+        <button class="export-btn" onclick="exportPDF()"
+          style="background: var(--accent); color: white; border-color: var(--accent);">📄 PDF Share</button>
+      </div>
     </div>
 
     <div class="items-list" id="itemsList">
@@ -1355,15 +1359,23 @@
         </p>
         <div style="display: flex; flex-direction: column; gap: 16px; text-align: left;">
           <div style="display: flex; align-items: flex-start; gap: 12px;">
-            <div style="background: var(--accent); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">1</div>
-            <p style="font-size: 14px;">Tap the <strong>Share</strong> button <span style="display: inline-block; background: #f0f0f0; padding: 4px; border-radius: 4px;">⎋</span> at the bottom of Safari.</p>
+            <div
+              style="background: var(--accent); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">
+              1</div>
+            <p style="font-size: 14px;">Tap the <strong>Share</strong> button <span
+                style="display: inline-block; background: #f0f0f0; padding: 4px; border-radius: 4px;">⎋</span> at the
+              bottom of Safari.</p>
           </div>
           <div style="display: flex; align-items: flex-start; gap: 12px;">
-            <div style="background: var(--accent); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">2</div>
+            <div
+              style="background: var(--accent); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">
+              2</div>
             <p style="font-size: 14px;">Scroll down and tap <strong>"Add to Home Screen"</strong>.</p>
           </div>
           <div style="display: flex; align-items: flex-start; gap: 12px;">
-            <div style="background: var(--accent); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">3</div>
+            <div
+              style="background: var(--accent); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">
+              3</div>
             <p style="font-size: 14px;">Tap <strong>Add</strong> in the top-right corner.</p>
           </div>
         </div>
@@ -1432,9 +1444,9 @@
 
   <div class="toast" id="toast"></div>
 
-  <div class="toast" id="toast"></div>
-
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
   <script>
     // ── SERVICE WORKER ──
     if ('serviceWorker' in navigator) {
@@ -1459,7 +1471,7 @@
       document.getElementById('installTitle').innerText = 'Add to Home Screen';
       document.getElementById('installSubtitle').innerText = 'Tap to see how to install on iPhone';
       document.getElementById('installBtn').innerText = 'How to Install';
-      
+
       const activeTab = document.querySelector('.tab.active');
       if (activeTab && activeTab.dataset.tab === 'home') {
         document.getElementById('installBar').classList.add('show');
@@ -1858,6 +1870,15 @@
         }
       });
 
+      // ── UNIQUE BAR NO CHECK ──
+      if (data.batchNumber) {
+        const isDuplicate = items.some(item => item.rawData && item.rawData.batchNumber === data.batchNumber);
+        if (isDuplicate) {
+          showToast(`Duplicate Bar No: ${data.batchNumber}`);
+          return;
+        }
+      }
+
       // Extract fields from QR based on mapping
       const name = data.itemName || 'Unknown';
       let gross = parseFloat(data.grossWeight);
@@ -2029,8 +2050,10 @@
       let totalGross = 0;
       let totalLess = 0;
       let totalNet = 0;
-      items.forEach((item, i) => {
-        const sr = items.length - i;
+
+      const ascendingItems = [...items].reverse();
+      ascendingItems.forEach((item, i) => {
+        const sr = i + 1;
         totalGross += item.gross;
         totalLess += item.less;
         totalNet += item.net;
@@ -2051,6 +2074,107 @@
       a.download = `weighscan_${new Date().toISOString().slice(0, 10)}.csv`;
       a.click();
       URL.revokeObjectURL(url);
+    }
+
+    async function exportPDF() {
+      if (!items.length) { showToast('No items to export'); return; }
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // Header
+      doc.setFontSize(18);
+      doc.setTextColor(48, 3, 78); // var(--accent) #30034e
+      doc.text("QrScan - Scanned Items Report", 14, 20);
+
+      doc.setFontSize(10);
+      doc.setTextColor(100);
+      doc.text(`Generated on: ${new Date().toLocaleString()}`, 14, 28);
+      doc.text("Provided By Shyam Software", 14, 33);
+
+      // Identify extra fields
+      const extraFields = new Set();
+      items.forEach(item => {
+        Object.keys(item.rawData || {}).forEach(k => {
+          if (!['itemName', 'grossWeight', 'netWeight', 'lessWeight', 'tareWeight', 'skip'].includes(k)) {
+            extraFields.add(k);
+          }
+        });
+      });
+      const extraFieldsArr = Array.from(extraFields);
+
+      const getLabel = (key) => {
+        const opt = [...FIELD_OPTIONS.piece, ...FIELD_OPTIONS.box].find(o => o.value === key);
+        return opt ? opt.label : key;
+      };
+
+      // Table Data
+      const head = [["Sr", "Item Name", "Gross", "Less", "Net", "Date", ...extraFieldsArr.map(getLabel)]];
+      const body = [];
+      let totalGross = 0;
+      let totalLess = 0;
+      let totalNet = 0;
+
+      const ascendingItems = [...items].reverse();
+      ascendingItems.forEach((item, i) => {
+        const sr = i + 1;
+        totalGross += item.gross;
+        totalLess += item.less;
+        totalNet += item.net;
+
+        const row = [
+          sr,
+          item.name,
+          item.gross.toFixed(3),
+          item.less.toFixed(3),
+          item.net.toFixed(3),
+          new Date(item.scannedAt).toLocaleDateString(),
+          ...extraFieldsArr.map(f => (item.rawData && item.rawData[f]) || '')
+        ];
+        body.push(row);
+      });
+
+      // Add Total Row
+      const footer = ["", "TOTAL", totalGross.toFixed(3), totalLess.toFixed(3), totalNet.toFixed(3), "", ...extraFieldsArr.map(() => "")];
+      body.push(footer);
+
+      doc.autoTable({
+        head: head,
+        body: body,
+        startY: 40,
+        theme: 'striped',
+        headStyles: { fillColor: [48, 3, 78] },
+        didParseCell: function (data) {
+          if (data.row.index === body.length - 1) {
+            data.cell.styles.fontStyle = 'bold';
+            data.cell.styles.fillColor = [232, 245, 238]; // var(--accent-light)
+            data.cell.styles.textColor = [48, 3, 78];
+          }
+        }
+      });
+
+      const fileName = `weighscan_${new Date().toISOString().slice(0, 10)}.pdf`;
+      const pdfOutput = doc.output('blob');
+
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([pdfOutput], fileName, { type: 'application/pdf' })] })) {
+        try {
+          const file = new File([pdfOutput], fileName, { type: 'application/pdf' });
+          await navigator.share({
+            files: [file],
+            title: 'QrScan Report',
+            text: 'Here is the scanned items report from QrScan app.'
+          });
+
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            doc.save(fileName);
+
+          }
+        }
+      } else {
+        doc.save(fileName);
+
+      }
     }
 
 

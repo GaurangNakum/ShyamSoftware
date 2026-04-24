@@ -6,6 +6,8 @@ const FILES = [
   './images/Logo192.png',
   './images/Logo512.png',
   'https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js',
   'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap'
 ];
 

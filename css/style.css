@@ -596,6 +596,20 @@ a:focus, a:hover {
   opacity: 0.8;
 }
 
+/* When .hero-area is used as a slider-item, override the static background */
+.hero-slider .slider-item.hero-area {
+  background-image: none !important;
+  height: auto;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 80px;
+  padding-bottom: 40px;
+}
+.hero-slider .slider-item.hero-area::before {
+  display: none !important;
+}
+
 .hero-area-video {
   height: 100vh;
   position: inherit !important;
@@ -647,11 +661,8 @@ a:focus, a:hover {
   top: 0;
 }
 .slider-item .container {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  position: relative;
+  z-index: 10;
 }
 .slider-item h1 {
   color: #fff;
@@ -681,6 +692,13 @@ a:focus, a:hover {
 
 .hero-slider {
   overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+/* Slick slider track and slides must allow full height */
+.hero-slider .slick-track,
+.hero-slider .slick-list {
+  height: 100% !important;
 }
 .hero-slider .prevArrow {
   left: -100px;
@@ -700,6 +718,53 @@ a:focus, a:hover {
 .hero-slider:hover .nextArrow {
   right: 20px;
 }
+
+/* Hero slider dots */
+.hero-slider .slick-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  z-index: 20;
+}
+.hero-slider .slick-dots li {
+  display: inline-block;
+  margin: 0 5px;
+}
+.hero-slider .slick-dots li button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  border: 2px solid rgba(255,255,255,0.8);
+  font-size: 0;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+.hero-slider .slick-dots li.slick-active button {
+  background: #fff;
+  transform: scale(1.2);
+}
+
+/* Mobile fix for slider items inside hero-slider */
+@media (max-width: 991px) {
+  .hero-slider .slider-item.hero-area {
+    padding-top: 80px;
+    padding-bottom: 60px;
+  }
+}
+@media (max-width: 575px) {
+  .hero-slider .slider-item.hero-area {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}
+
 
 /* slick style */
 .slick-slide {

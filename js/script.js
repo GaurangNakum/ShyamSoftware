@@ -35,12 +35,14 @@
     arrows: true,
     prevArrow: '<button type=\'button\' class=\'prevArrow\'></button>',
     nextArrow: '<button type=\'button\' class=\'nextArrow\'></button>',
-    dots: false,
-    autoplaySpeed: 16000,
+    dots: true,
+    autoplaySpeed: 7000,
+    speed: 800,
+    cssEase: 'ease-in-out',
     pauseOnFocus: false,
-    pauseOnHover: false
+    pauseOnHover: false,
+    adaptiveHeight: false
   });
-  $heroSlider.slickAnimation();
 
   /* ========================================================================= */
   /*	Portfolio Filtering Hook

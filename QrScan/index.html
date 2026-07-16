@@ -1,0 +1,2203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#30034e" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="images/Logo192.png" type="image/png" />
+  <title>QrScan</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f5f3;
+      --white: #ffffff;
+      --accent: #30034e;
+      --accent-light: #e8f5ee;
+      --accent-soft: #d0eddb;
+      --text: #111111;
+      --sub: #888888;
+      --border: #e4e4e0;
+      --danger: #d93b3b;
+      --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--white);
+      padding: 16px 20px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .logo-img {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .logo-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .logo-subtitle {
+      font-size: 12px;
+      font-style: bold;
+      color: var(--sub);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .settings-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--bg);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .settings-icon:active {
+      background: var(--accent-light);
+    }
+
+    .badge {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 5px 13px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* TABS */
+    .tabs {
+      background: var(--white);
+      display: flex;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 60px;
+      z-index: 99;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 14px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--sub);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    .tab.active {
+      color: var(--accent);
+    }
+
+    .tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    /* TAB CONTENT */
+    .tab-content {
+      display: none;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .tab-content.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HOME PAGE RE-DESIGN */
+    .home-page {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(135deg, #f5f5f3 0%, #e8f5ee 100%);
+      padding: 24px 16px;
+      gap: 32px;
+      overflow-y: auto;
+    }
+
+    /* GUIDE SECTION */
+    .guide-section {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .guide-section:active {
+      transform: scale(0.98);
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .guide-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .guide-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .guide-badge {
+      background: #ff0000;
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .guide-img-wrapper {
+      position: relative;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+
+    .guide-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+    }
+
+
+    /* SLIDER SECTION */
+    .slider-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .slider-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .slider-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .slider-scroll {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      margin: 0 -16px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .slider-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .slider-card {
+      min-width: 80%;
+      max-width: 300px;
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      scroll-snap-align: center;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .slider-img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: #f8f9fa;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .slider-info {
+      padding: 14px;
+    }
+
+    .slider-info h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .slider-info p {
+      font-size: 13px;
+      color: var(--sub);
+      line-height: 1.4;
+    }
+
+    /* FOOTER */
+    .app-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .app-footer.sticky-pos {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 0;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.04);
+      z-index: 150;
+    }
+
+    .footer-logo {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* CAMERA */
+    .cam-placeholder {
+      background: var(--white);
+      margin: 14px 16px 0;
+      border-radius: 16px;
+      border: 2px dashed var(--border);
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .cam-placeholder:active {
+      background: var(--accent-light);
+      border-color: var(--accent);
+    }
+
+    .cam-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 4px 16px rgba(26, 107, 60, 0.3);
+    }
+
+    .cam-placeholder p {
+      color: var(--sub);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .camera-wrap {
+      margin: 14px 16px 0;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+      display: none;
+      box-shadow: var(--card-shadow);
+    }
+
+    #video {
+      width: 100%;
+      display: block;
+      max-height: 240px;
+      object-fit: cover;
+    }
+
+    .scan-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .scan-box {
+      width: 160px;
+      height: 160px;
+      position: relative;
+    }
+
+    .scan-box::before,
+    .scan-box::after,
+    .scan-box .cb,
+    .scan-box .cd {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-color: #fff;
+      border-style: solid;
+    }
+
+    .scan-box::before {
+      top: 0;
+      left: 0;
+      border-width: 3px 0 0 3px;
+      border-radius: 4px 0 0 0;
+    }
+
+    .scan-box::after {
+      top: 0;
+      right: 0;
+      border-width: 3px 3px 0 0;
+      border-radius: 0 4px 0 0;
+    }
+
+    .scan-box .cb {
+      bottom: 0;
+      right: 0;
+      border-width: 0 3px 3px 0;
+      border-radius: 0 0 4px 0;
+    }
+
+    .scan-box .cd {
+      bottom: 0;
+      left: 0;
+      border-width: 0 0 3px 3px;
+      border-radius: 0 0 0 4px;
+    }
+
+    .scan-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #4ade80, transparent);
+      animation: scanMove 1.8s ease-in-out infinite;
+    }
+
+    @keyframes scanMove {
+      0% {
+        top: 0;
+        opacity: .8;
+      }
+
+      50% {
+        top: calc(100% - 2px);
+        opacity: 1;
+      }
+
+      100% {
+        top: 0;
+        opacity: .8;
+      }
+    }
+
+    .scan-label {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.55);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .flash {
+      position: absolute;
+      inset: 0;
+      background: #4ade80;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .flash.on {
+      animation: flashAnim 0.2s ease;
+    }
+
+    @keyframes flashAnim {
+      0% {
+        opacity: .5
+      }
+
+      100% {
+        opacity: 0
+      }
+    }
+
+    /* TOTAL */
+    .total-card {
+      background: var(--accent);
+      margin: 14px 16px 0;
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .total-info {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .main-total {
+      margin-top: 4px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .total-label {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+
+    .total-val-small {
+      font-family: 'DM Mono', monospace;
+      font-size: 20px;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .total-val {
+      font-family: 'DM Mono', monospace;
+      font-size: 32px;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .total-unit {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-left: 3px;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .total-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 2px;
+    }
+
+    .scan-count-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.9);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 10px;
+    }
+
+    .clear-btn {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .clear-btn:active {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* LAST SCAN */
+    .last-scan {
+      margin: 12px 16px 0;
+      background: var(--accent-light);
+      border: 1px solid var(--accent-soft);
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      animation: slideIn 0.3s ease;
+    }
+
+    .last-scan.show {
+      display: flex;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+    }
+
+    .ls-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: .4;
+      }
+    }
+
+    .ls-text {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .ls-text b {
+      color: var(--accent);
+    }
+
+    /* LIST */
+    .list-header {
+      margin: 20px 16px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .list-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .export-btn {
+      background: var(--white);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .export-btn:active {
+      background: var(--bg);
+    }
+
+    .items-list {
+      padding: 0 16px 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .empty-state {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--sub);
+    }
+
+    .empty-state .icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .empty-state p {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .item-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: var(--card-shadow);
+      animation: fadeIn 0.4s ease;
+      position: relative;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+    }
+
+    .item-left {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-row1 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .item-num {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .item-name {
+      font-size: 15px;
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .item-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--sub);
+    }
+
+    .item-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .item-net {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .net-val {
+      font-family: 'DM Mono', monospace;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .net-unit {
+      font-size: 11px;
+      color: var(--sub);
+      font-weight: 500;
+      margin-top: 4px;
+      display: block;
+    }
+
+    .delete-item-btn {
+      width: 36px;
+      height: 36px;
+      background: transparent;
+      border: none;
+      color: #ef4444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    .delete-item-btn:active {
+      transform: scale(0.85);
+    }
+
+    .delete-item-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    /* INSTALL BAR */
+    .install-bar {
+      position: fixed;
+      bottom: 43px;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 12px 16px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+      z-index: 140;
+    }
+
+    .install-bar.show {
+      display: flex;
+    }
+
+    .install-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .install-text strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .install-text span {
+      font-size: 12px;
+      color: var(--sub);
+    }
+
+    .install-btn {
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .install-btn:active {
+      background: #145230;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 12px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      max-width: calc(100% - 32px);
+      z-index: 300;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    canvas {
+      display: none;
+    }
+
+    /* SETTINGS MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 500;
+      animation: fadeInOverlay 0.3s ease;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    @keyframes fadeInOverlay {
+      from {
+        opacity: 0;
+      }
+    }
+
+    .settings-modal {
+      background: var(--white);
+      width: 100%;
+      max-height: 85vh;
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      flex-direction: column;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(100%);
+      }
+    }
+
+    .modal-header {
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .close-modal-btn {
+      width: 32px;
+      height: 32px;
+      background: var(--bg);
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .close-modal-btn:active {
+      background: var(--border);
+    }
+
+    .modal-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+
+    .settings-card {
+      background: var(--bg);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 8px;
+    }
+
+    .settings-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      background: var(--white);
+      color: var(--text);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+    }
+
+    .form-select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .item-left {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+      min-width: 0;
+      padding-right: 12px;
+    }
+
+    .item-row1 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .item-num {
+      font-size: 13px;
+      color: var(--sub);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .item-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-sub {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .weight-chip {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 3px 6px;
+      border-radius: 6px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .column-mapping {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .column-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .column-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--sub);
+      min-width: 70px;
+    }
+
+    .column-select {
+      flex: 1;
+      min-width: 0;
+      width: 100%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      background: var(--white);
+      color: var(--text);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
+    }
+
+    .column-select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .delete-col-btn {
+      width: 36px;
+      height: 36px;
+      background: transparent;
+      border: none;
+      color: #ef4444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    .delete-col-btn:active {
+      transform: scale(0.85);
+    }
+
+    .delete-col-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    .add-col-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--accent-light);
+      border: 1.5px dashed var(--accent);
+      border-radius: 10px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 10px;
+      transition: background 0.2s;
+    }
+
+    .add-col-btn:active {
+      background: var(--accent-soft);
+    }
+
+
+
+    .info-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+      margin-top: 12px;
+    }
+
+    .info-box strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="logo-section">
+      <img src="images/Logo192.png" alt="Logo" class="logo-img">
+      <div class="logo-text">
+        <div class="logo-title">QrScan</div>
+        <div class="logo-subtitle">Provided By <span onclick="window.open('https://shyamsoftware.com', '_blank')"
+            style="cursor: pointer; text-decoration: underline; font-weight: 600;">Shyam Software</span></div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="settings-icon" onclick="openSettings()">⚙️</div>
+    </div>
+  </header>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" data-tab="home" onclick="switchTab('home')">Home</button>
+    <button class="tab" data-tab="scanner" onclick="switchTab('scanner')">Scanner</button>
+  </div>
+
+  <!-- HOME TAB (OPENS FIRST) -->
+  <div class="tab-content active" id="homeTab">
+    <div class="home-page">
+
+      <!-- Section 1: Tutorial (How to use PWA) -->
+      <a href="https://www.youtube.com/shorts/A7Tc4GRGp8Q?si=vWBZiUebScqyB2pp" target="_blank" class="guide-section">
+        <div class="guide-header">
+          <div class="guide-title">How to use QrScan 🚀</div>
+          <div class="guide-badge">TUTORIAL</div>
+        </div>
+        <!-- <div style="font-size: 14px; color: var(--sub); line-height: 1.4;">
+          Step-by-step guide to using the PWA scanner and exporting weights.
+        </div> -->
+      </a>
+
+      <!-- Section 2: Weight Software (Software Demo) -->
+      <a href="https://youtube.com/shorts/4ziIHvlNC0U?si=LzL94PoweZDe7VXO" target="_blank" class="guide-section">
+        <div class="guide-header">
+          <div class="guide-title">Explore Weight Software </div>
+          <div class="guide-badge" style="background: #30034e;">SOFTWARE</div>
+        </div>
+        <div class="guide-img-wrapper">
+          <img src="images/wgt-orn-demo.png" alt="Weight Software Demo" class="guide-img">
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-top: 10px;">
+          <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: var(--accent);">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+          <span style="color: var(--accent); font-weight: 700; text-decoration: underline;">More Details</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- SCANNER TAB -->
+  <div class="tab-content" id="scannerTab">
+
+    <!-- CAMERA -->
+    <div class="cam-placeholder" id="camPlaceholder" onclick="startCamera()">
+      <div class="cam-icon">📷</div>
+      <p>Tap to start scanning</p>
+    </div>
+
+    <div class="camera-wrap" id="cameraWrap">
+      <video id="video" playsinline autoplay muted></video>
+      <div class="scan-overlay">
+        <div class="scan-box">
+          <div class="cb"></div>
+          <div class="cd"></div>
+          <div class="scan-line"></div>
+        </div>
+        <div class="scan-label">Scanning QR codes...</div>
+      </div>
+      <div class="flash" id="flash"></div>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <!-- TOTAL -->
+    <div class="total-card">
+      <div class="total-info">
+        <div class="total-row">
+          <div class="total-label">Gross Total</div>
+          <div class="total-val-small" id="totalGross">0.000<span class="total-unit">g</span></div>
+        </div>
+        <div class="total-row">
+          <div class="total-label">Less Total</div>
+          <div class="total-val-small" id="totalLess">0.000<span class="total-unit">g</span></div>
+        </div>
+        <div class="total-row main-total">
+          <div class="total-label">Net Total</div>
+          <div class="total-val" id="totalVal">0.000<span class="total-unit">g</span></div>
+        </div>
+      </div>
+      <div class="total-footer">
+        <div class="scan-count-badge" id="scanCount">0 items scanned</div>
+        <button class="clear-btn" onclick="clearAll()">Clear</button>
+      </div>
+    </div>
+
+    <!-- LAST SCAN -->
+    <div class="last-scan" id="lastScan">
+      <div class="ls-dot"></div>
+      <div class="ls-text" id="lastScanText"></div>
+    </div>
+
+    <!-- LIST -->
+    <div class="list-header">
+      <div class="list-title">Scanned Items</div>
+      <div style="display: flex; gap: 8px;">
+        <button class="export-btn" onclick="exportCSV()">⬇ CSV</button>
+        <button class="export-btn" onclick="exportPDF()"
+          style="background: var(--accent); color: white; border-color: var(--accent);">📄 PDF Share</button>
+      </div>
+    </div>
+
+    <div class="items-list" id="itemsList">
+      <div class="empty-state">
+        <div class="icon">⚖️</div>
+        <p>No items yet.<br />Tap camera and scan a QR code.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSTALL BAR -->
+  <div class="install-bar show" id="installBar">
+    <div class="install-text">
+      <strong id="installTitle">Install App</strong>
+      <span id="installSubtitle">Add to Home Screen for offline access</span>
+    </div>
+    <button class="install-btn" id="installBtn">Install</button>
+  </div>
+
+  <!-- iOS INSTALL HELP MODAL -->
+  <div class="modal-overlay" id="iosHelpModal" onclick="closeIosHelp(event)">
+    <div class="settings-modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title">Install on iPhone / iPad</div>
+        <button class="close-modal-btn" onclick="closeIosHelp()">✕</button>
+      </div>
+      <div class="modal-content" style="padding: 24px; text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 20px;">📲</div>
+        <p style="font-size: 15px; line-height: 1.6; color: var(--text); margin-bottom: 24px;">
+          To install this app on your iPhone, follow these simple steps:
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 16px; text-align: left;">
+          <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div
+              style="background: var(--accent); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">
+              1</div>
+            <p style="font-size: 14px;">Tap the <strong>Share</strong> button <span
+                style="display: inline-block; background: #f0f0f0; padding: 4px; border-radius: 4px;">⎋</span> at the
+              bottom of Safari.</p>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div
+              style="background: var(--accent); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">
+              2</div>
+            <p style="font-size: 14px;">Scroll down and tap <strong>"Add to Home Screen"</strong>.</p>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div
+              style="background: var(--accent); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;">
+              3</div>
+            <p style="font-size: 14px;">Tap <strong>Add</strong> in the top-right corner.</p>
+          </div>
+        </div>
+        <button class="install-btn" onclick="closeIosHelp()" style="margin-top: 32px; width: 100%;">Got it!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GLOBAL STICKY FOOTER -->
+  <div class="app-footer sticky-pos">
+    Powered by <img src="images/Logo192.png" alt="Logo" class="footer-logo"><strong
+      onclick="window.open('https://shyamsoftware.com', '_blank')"
+      style="cursor: pointer; text-decoration: underline;">Shyam Software</strong>
+  </div>
+
+  <!-- SETTINGS MODAL (POPUP) -->
+  <div class="modal-overlay" id="settingsModal" onclick="closeSettings(event)">
+    <div class="settings-modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title">Settings</div>
+        <button class="close-modal-btn" onclick="closeSettings()">✕</button>
+      </div>
+
+      <div class="modal-content">
+        <!-- Scan Type -->
+        <div class="settings-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <h3 style="margin-bottom: 0;">Item Type</h3>
+            <div class="reset-icon-btn" onclick="resetToDefaults()" title="Reset to Defaults"
+              style="color: #ef4444; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; transition: background 0.2s;">
+              <svg viewBox="0 0 24 24"
+                style="width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                <path d="M3 3v5h5"></path>
+                <path d="M12 7v5l4 2"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Select scan type</label>
+            <select class="form-select" id="scanTypeSelect" onchange="updateFieldOptions()">
+              <option value="piece">Individual Piece</option>
+              <option value="box">Box / Container</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Column Mapping -->
+        <div class="settings-card">
+          <h3>QR Column Mapping</h3>
+          <div class="info-box">
+            Map QR format: <strong>\val1\val2\val3...</strong><br>
+            Define what each column represents in your QR code.
+          </div>
+          <div class="column-mapping" id="columnMapping">
+            <!-- Dynamic columns will be added here -->
+          </div>
+          <button class="add-col-btn" onclick="addColumn()">
+            <span>+</span> Add New Column
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+  <script>
+    // ── SERVICE WORKER ──
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => { });
+    }
+
+    // ── PWA INSTALL PROMPT ──
+    let deferredPrompt = null;
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    window.addEventListener('beforeinstallprompt', e => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const activeTab = document.querySelector('.tab.active');
+      if (activeTab && activeTab.dataset.tab === 'home') {
+        document.getElementById('installBar').classList.add('show');
+      }
+    });
+
+    // iOS Specific UI Logic
+    if (isIOS) {
+      document.getElementById('installTitle').innerText = 'Add to Home Screen';
+      document.getElementById('installSubtitle').innerText = 'Tap to see how to install on iPhone';
+      document.getElementById('installBtn').innerText = 'How to Install';
+
+      const activeTab = document.querySelector('.tab.active');
+      if (activeTab && activeTab.dataset.tab === 'home') {
+        document.getElementById('installBar').classList.add('show');
+      }
+    }
+
+    document.getElementById('installBtn').addEventListener('click', async () => {
+      if (isIOS) {
+        openIosHelp();
+        return;
+      }
+
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+    });
+
+    window.addEventListener('appinstalled', () => {
+      // Keep showing as requested
+    });
+
+    function openIosHelp() {
+      document.getElementById('iosHelpModal').classList.add('show');
+    }
+
+    function closeIosHelp(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('iosHelpModal').classList.remove('show');
+    }
+
+
+    // ── FIELD OPTIONS ──
+    const FIELD_OPTIONS = {
+      piece: [
+        { value: 'batchNumber', label: 'Bar No' },
+        { value: 'itemName', label: 'Item Name' },
+        { value: 'grossWeight', label: 'Gross Weight' },
+        { value: 'netWeight', label: 'Net Weight' },
+        { value: 'lessWeight', label: 'Less Weight' },
+        { value: 'date', label: 'Date' },
+        { value: 'skip', label: 'Skip / Ignore' }
+      ],
+      box: [
+        { value: 'batchNumber', label: 'Bar No' },
+        { value: 'itemName', label: 'Item Name' },
+        { value: 'grossWeight', label: 'Gross Weight' },
+        { value: 'netWeight', label: 'Net Weight' },
+        { value: 'lessWeight', label: 'Less Weight' },
+        { value: 'boxWeight', label: 'Box Weight' },
+        { value: 'bagWeight', label: 'Bag Weight' },
+        { value: 'bagCount', label: 'pcs of bag' },
+        { value: 'piecesPerBag', label: 'Pieces per Bag' },
+        { value: 'piecesPerBox', label: 'Pieces per Box' },
+        { value: 'date', label: 'Date' },
+        { value: 'skip', label: 'Skip / Ignore' }
+      ]
+    };
+
+    // ── SETTINGS STATE ──
+    const DEFAULT_SETTINGS = {
+      scanType: 'piece',
+      columnsConfig: {
+        piece: [
+          { id: 1, field: 'batchNumber' },
+          { id: 2, field: 'itemName' },
+          { id: 3, field: 'grossWeight' },
+          { id: 4, field: 'netWeight' }
+        ],
+        box: [
+          { id: 1, field: 'batchNumber' },
+          { id: 2, field: 'itemName' },
+          { id: 3, field: 'grossWeight' },
+          { id: 4, field: 'netWeight' },
+          { id: 5, field: 'boxWeight' },
+          { id: 6, field: 'bagWeight' },
+          { id: 7, field: 'bagCount' }
+        ]
+      }
+    };
+
+    let settings = JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
+
+    let nextColumnId = 8;
+
+    function resetToDefaults() {
+      if (!confirm('Are you sure you want to revert all settings to default? This will clear your custom column mappings.')) return;
+
+      localStorage.removeItem('ws_settings');
+      settings = JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
+      nextColumnId = 8;
+
+      document.getElementById('scanTypeSelect').value = settings.scanType;
+      renderColumns();
+      saveSettings();
+      showToast('✓ Settings reset to default');
+    }
+
+    // ── SETTINGS MODAL ──
+    function openSettings() {
+      document.getElementById('settingsModal').classList.add('show');
+      renderColumns();
+    }
+
+    function closeSettings(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('settingsModal').classList.remove('show');
+    }
+
+    // ── LOAD SETTINGS ──
+    function loadSettings() {
+      try {
+        const saved = localStorage.getItem('ws_settings');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+
+          if (parsed.columns && !parsed.columnsConfig) {
+            // Migrate old format
+            settings.scanType = parsed.scanType || 'piece';
+            settings.columnsConfig = {
+              piece: parsed.columns,
+              box: [
+                { id: 1, field: 'itemName' },
+                { id: 2, field: 'grossWeight' },
+                { id: 3, field: 'netWeight' }
+              ]
+            };
+          } else if (parsed.columnsConfig) {
+            settings = parsed;
+          }
+
+          // Migrate old tareWeight to lessWeight
+          ['piece', 'box'].forEach(type => {
+            if (settings.columnsConfig[type]) {
+              settings.columnsConfig[type].forEach(col => {
+                if (col.field === 'tareWeight') col.field = 'lessWeight';
+              });
+            }
+          });
+
+          let maxId = 0;
+          if (settings.columnsConfig.piece) maxId = Math.max(maxId, ...settings.columnsConfig.piece.map(c => c.id));
+          if (settings.columnsConfig.box) maxId = Math.max(maxId, ...settings.columnsConfig.box.map(c => c.id));
+          nextColumnId = (isFinite(maxId) ? maxId : 0) + 1;
+        }
+      } catch (e) {
+        console.error('Error loading settings:', e);
+      }
+
+      document.getElementById('scanTypeSelect').value = settings.scanType;
+    }
+
+    // ── SAVE SETTINGS ──
+    function saveSettings() {
+      try {
+        localStorage.setItem('ws_settings', JSON.stringify(settings));
+      } catch (e) { }
+    }
+
+    // ── RENDER COLUMNS ──
+    function renderColumns() {
+      const container = document.getElementById('columnMapping');
+      const fieldOptions = FIELD_OPTIONS[settings.scanType];
+      const cols = settings.columnsConfig[settings.scanType] || [];
+
+      container.innerHTML = cols.map((col, index) => `
+        <div class="column-row">
+          <span class="column-label">Column ${index + 1}:</span>
+          <select class="column-select" data-col-id="${col.id}" onchange="updateColumnField(${col.id}, this.value)">
+            ${fieldOptions.map(opt =>
+        `<option value="${opt.value}" ${col.field === opt.value ? 'selected' : ''}>${opt.label}</option>`
+      ).join('')}
+          </select>
+          <button class="delete-col-btn" onclick="deleteColumn(${col.id})">
+            <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // ── ADD COLUMN ──
+    function addColumn() {
+      const cols = settings.columnsConfig[settings.scanType] || [];
+
+      cols.push({
+        id: nextColumnId++,
+        field: 'skip'
+      });
+      settings.columnsConfig[settings.scanType] = cols;
+      renderColumns();
+      saveSettings();
+    }
+
+    // ── DELETE COLUMN ──
+    function deleteColumn(id) {
+      let cols = settings.columnsConfig[settings.scanType] || [];
+      if (cols.length <= 1) {
+        showToast('At least 1 column required');
+        return;
+      }
+
+      cols = cols.filter(c => c.id !== id);
+      settings.columnsConfig[settings.scanType] = cols;
+      renderColumns();
+      saveSettings();
+    }
+
+    // ── UPDATE COLUMN FIELD ──
+    function updateColumnField(id, field) {
+      const cols = settings.columnsConfig[settings.scanType] || [];
+      const col = cols.find(c => c.id === id);
+      if (col) col.field = field;
+      saveSettings();
+    }
+
+    // ── UPDATE FIELD OPTIONS ──
+    function updateFieldOptions() {
+      settings.scanType = document.getElementById('scanTypeSelect').value;
+      if (!settings.columnsConfig[settings.scanType]) {
+        if (settings.scanType === 'box') {
+          settings.columnsConfig.box = [
+            { id: nextColumnId++, field: 'batchNumber' },
+            { id: nextColumnId++, field: 'itemName' },
+            { id: nextColumnId++, field: 'grossWeight' },
+            { id: nextColumnId++, field: 'netWeight' },
+            { id: nextColumnId++, field: 'boxWeight' },
+            { id: nextColumnId++, field: 'bagWeight' },
+            { id: nextColumnId++, field: 'bagCount' }
+          ];
+        } else {
+          settings.columnsConfig.piece = [
+            { id: nextColumnId++, field: 'batchNumber' },
+            { id: nextColumnId++, field: 'itemName' },
+            { id: nextColumnId++, field: 'grossWeight' },
+            { id: nextColumnId++, field: 'netWeight' }
+          ];
+        }
+      }
+      renderColumns();
+      saveSettings();
+    }
+
+    // ── TAB SWITCHING ──
+    function switchTab(tabName) {
+      // Update tab buttons
+      document.querySelectorAll('.tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.tab === tabName);
+      });
+
+      // Update tab content
+      document.querySelectorAll('.tab-content').forEach(c => {
+        c.classList.remove('active');
+      });
+
+      // Show/Hide Install Bar
+      const installBar = document.getElementById('installBar');
+      if (installBar) {
+        if (tabName === 'home') {
+          installBar.classList.add('show');
+        } else {
+          installBar.classList.remove('show');
+        }
+      }
+
+      if (tabName === 'home') {
+        document.getElementById('homeTab').classList.add('active');
+      } else if (tabName === 'scanner') {
+        document.getElementById('scannerTab').classList.add('active');
+      }
+    }
+
+    // ── INDEXEDDB STORAGE ──
+    let db;
+    const DB_NAME = 'WeighScanDB';
+    const STORE = 'sessions';
+    const SESSION_KEY = 'current';
+
+    function openDB() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open(DB_NAME, 1);
+        req.onupgradeneeded = e => {
+          e.target.result.createObjectStore(STORE, { keyPath: 'id' });
+        };
+        req.onsuccess = e => resolve(e.target.result);
+        req.onerror = () => reject();
+      });
+    }
+
+    async function saveItems(items) {
+      try {
+        const database = db || (db = await openDB());
+        const tx = database.transaction(STORE, 'readwrite');
+        tx.objectStore(STORE).put({ id: SESSION_KEY, items, savedAt: new Date().toISOString() });
+      } catch (e) {
+        // fallback to sessionStorage
+        try { sessionStorage.setItem('ws_items', JSON.stringify(items)); } catch (_) { }
+      }
+    }
+
+    async function loadItems() {
+      try {
+        const database = db || (db = await openDB());
+        return new Promise(resolve => {
+          const tx = database.transaction(STORE, 'readonly');
+          const req = tx.objectStore(STORE).get(SESSION_KEY);
+          req.onsuccess = () => resolve(req.result?.items || []);
+          req.onerror = () => resolve([]);
+        });
+      } catch (e) {
+        try {
+          const s = sessionStorage.getItem('ws_items');
+          return s ? JSON.parse(s) : [];
+        } catch (_) { return []; }
+      }
+    }
+
+    async function clearDB() {
+      try {
+        const database = db || (db = await openDB());
+        const tx = database.transaction(STORE, 'readwrite');
+        tx.objectStore(STORE).delete(SESSION_KEY);
+      } catch (e) {
+        sessionStorage.removeItem('ws_items');
+      }
+    }
+
+    // ── APP STATE ──
+    let items = [];
+    let scanning = false;
+    let lastCode = '';
+    let lastCodeTime = 0;
+
+    // Load on start
+    (async () => {
+      loadSettings();
+      items = await loadItems();
+      render();
+    })();
+
+    // ── CAMERA ──
+    async function startCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 }, frameRate: { ideal: 30 } }
+        });
+        const video = document.getElementById('video');
+        video.srcObject = stream;
+        await video.play();
+        document.getElementById('camPlaceholder').style.display = 'none';
+        document.getElementById('cameraWrap').style.display = 'block';
+        scanning = true;
+        requestAnimationFrame(tick);
+      } catch (e) {
+        showToast('Camera access denied. Allow in browser settings.');
+      }
+    }
+
+    function tick() {
+      if (!scanning) return;
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
+      if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        const scale = 0.5;
+        canvas.width = video.videoWidth * scale;
+        canvas.height = video.videoHeight * scale;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const code = jsQR(img.data, img.width, img.height, { inversionAttempts: 'dontInvert' });
+        if (code) {
+          const now = Date.now();
+          if (code.data !== lastCode || now - lastCodeTime > 1000) {
+            lastCode = code.data;
+            lastCodeTime = now;
+            processQR(code.data);
+          }
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // ── QR PARSING ──
+    function processQR(raw) {
+      const parts = raw.split('/');
+      const cols = settings.columnsConfig[settings.scanType] || [];
+
+      if (parts.length < cols.length) {
+        showToast('QR format mismatch - not enough values');
+        return;
+      }
+
+      const data = {};
+      cols.forEach((col, index) => {
+        if (col.field !== 'skip' && parts[index]) {
+          data[col.field] = parts[index].trim();
+        }
+      });
+
+      // ── UNIQUE BAR NO CHECK ──
+      if (data.batchNumber) {
+        const isDuplicate = items.some(item => item.rawData && item.rawData.batchNumber === data.batchNumber);
+        if (isDuplicate) {
+          showToast(`Duplicate Bar No: ${data.batchNumber}`);
+          return;
+        }
+      }
+
+      // Extract fields from QR based on mapping
+      const name = data.itemName || 'Unknown';
+      let gross = parseFloat(data.grossWeight);
+      let net = parseFloat(data.netWeight);
+      let lessVal = parseFloat(data.lessWeight);
+
+      // WEIGHT CALCULATION PRIORITY:
+      if (isNaN(gross) && isNaN(net)) {
+        showToast('At least Gross or Net weight mapping is needed!');
+        return;
+      }
+
+      if (!isNaN(net)) {
+        // 1. If Net is provided, use it as primary.
+        if (isNaN(gross)) gross = net;
+        if (isNaN(lessVal)) lessVal = parseFloat((gross - net).toFixed(3));
+      } else if (!isNaN(gross) && !isNaN(lessVal)) {
+        // 2. If Net is missing, but Gross and Less exist, calculate Net.
+        net = parseFloat((gross - lessVal).toFixed(3));
+      } else if (!isNaN(gross)) {
+        // 3. If only Gross exists, use it as Net.
+        net = gross;
+        lessVal = 0;
+      } else {
+        // 4. Default fallbacks
+        gross = isNaN(gross) ? 0 : gross;
+        net = isNaN(net) ? 0 : net;
+        lessVal = isNaN(lessVal) ? 0 : lessVal;
+      }
+
+      const less = parseFloat(lessVal.toFixed(3));
+      gross = parseFloat(gross.toFixed(3));
+      net = parseFloat(net.toFixed(3));
+
+      const ts = new Date().toISOString();
+
+      // Store all parsed data
+      items.unshift({
+        id: Date.now() + Math.random(), // Unique ID for deletion
+        name,
+        gross,
+        less,
+        net,
+        scannedAt: ts,
+        rawData: data
+      });
+
+      saveItems(items);
+      render();
+      doFlash();
+      showLastScan(items[0]);
+    }
+
+    // ── DELETE ITEM ──
+    async function deleteItem(itemId) {
+      if (!confirm('Delete this item?')) return;
+
+      items = items.filter(item => item.id !== itemId);
+      await saveItems(items);
+      render();
+      showToast('✓ Item deleted');
+    }
+
+    // ── RENDER ──
+    function render() {
+      const totalNet = items.reduce((s, i) => s + i.net, 0);
+      const totalGross = items.reduce((s, i) => s + i.gross, 0);
+      const totalLess = items.reduce((s, i) => s + i.less, 0);
+
+      document.getElementById('totalVal').innerHTML = `${totalNet.toFixed(3)}<span class="total-unit">g</span>`;
+      document.getElementById('totalGross').innerHTML = `${totalGross.toFixed(3)}<span class="total-unit">g</span>`;
+      document.getElementById('totalLess').innerHTML = `${totalLess.toFixed(3)}<span class="total-unit">g</span>`;
+      document.getElementById('scanCount').textContent = `${items.length} item${items.length !== 1 ? 's' : ''} scanned`;
+
+      const list = document.getElementById('itemsList');
+      if (!items.length) {
+        list.innerHTML = `<div class="empty-state"><div class="icon">⚖️</div><p>No items yet.<br/>Tap camera and scan a QR code.</p></div>`;
+        return;
+      }
+
+      list.innerHTML = items.map((item, i) => {
+        const getLabel = (key) => {
+          const opt = FIELD_OPTIONS.box.find(o => o.value === key);
+          return opt ? opt.label : key;
+        };
+
+        const extraChips = Object.entries(item.rawData || {})
+          .filter(([key, val]) => !['itemName', 'grossWeight', 'netWeight', 'lessWeight', 'tareWeight', 'skip'].includes(key) && val)
+          .map(([key, val]) => `<span class="weight-chip">${getLabel(key)}: ${esc(val)}</span>`)
+          .join('');
+
+        return `
+    <div class="item-card">
+      <div class="item-left">
+        <div class="item-row1">
+          <span class="item-num">#${items.length - i}</span>
+          <span class="item-name">${esc(item.name)}</span>
+        </div>
+        <div class="item-sub">
+          <span class="weight-chip">G: ${item.gross.toFixed(3)}g</span>
+          <span class="weight-chip">L: ${item.less.toFixed(3)}g</span>
+          ${extraChips}
+        </div>
+      </div>
+      <div class="item-right">
+        <div class="item-net">
+          <div class="net-val">${item.net.toFixed(3)}g</div>
+          <span class="net-unit">Net weight</span>
+          </div>
+        <button class="delete-item-btn" onclick="deleteItem(${item.id})">
+          <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+        </button>
+      </div>
+    </div>
+  `;
+      }).join('');
+    }
+
+    function showLastScan(item) {
+      document.getElementById('lastScanText').innerHTML =
+        `Added: <b>${esc(item.name)}</b> — <b>${item.net.toFixed(3)}g</b> net`;
+      document.getElementById('lastScan').classList.add('show');
+    }
+
+    function doFlash() {
+      const f = document.getElementById('flash');
+      f.classList.remove('on');
+      void f.offsetWidth;
+      f.classList.add('on');
+    }
+
+    // ── CLEAR ──
+    async function clearAll() {
+      if (!items.length) return;
+      if (!confirm(`Clear all ${items.length} scanned items?`)) return;
+      items = [];
+      lastCode = '';
+      await clearDB();
+      document.getElementById('lastScan').classList.remove('show');
+      render();
+    }
+
+    // ── EXPORT CSV ──
+    function exportCSV() {
+      if (!items.length) { showToast('No items to export'); return; }
+
+      // Identify extra fields
+      const extraFields = new Set();
+      items.forEach(item => {
+        Object.keys(item.rawData || {}).forEach(k => {
+          if (!['itemName', 'grossWeight', 'netWeight', 'lessWeight', 'tareWeight', 'skip'].includes(k)) {
+            extraFields.add(k);
+          }
+        });
+      });
+      const extraFieldsArr = Array.from(extraFields);
+
+      const getLabel = (key) => {
+        const opt = [...FIELD_OPTIONS.piece, ...FIELD_OPTIONS.box].find(o => o.value === key);
+        return opt ? opt.label : key;
+      };
+
+      // Header
+      let csv = "Sr,Item Name,Gross,Less,Net,Date";
+      extraFieldsArr.forEach(f => { csv += `,${getLabel(f)}`; });
+      csv += "\n";
+
+      // Rows
+      let totalGross = 0;
+      let totalLess = 0;
+      let totalNet = 0;
+
+      const ascendingItems = [...items].reverse();
+      ascendingItems.forEach((item, i) => {
+        const sr = i + 1;
+        totalGross += item.gross;
+        totalLess += item.less;
+        totalNet += item.net;
+        let row = `${sr},"${item.name}",${item.gross.toFixed(3)},${item.less.toFixed(3)},${item.net.toFixed(3)},"${item.scannedAt || ''}"`;
+        extraFieldsArr.forEach(f => {
+          row += `,"${(item.rawData && item.rawData[f]) || ''}"`;
+        });
+        csv += row + "\n";
+      });
+
+      // Footer
+      csv += `\n,TOTAL,${totalGross.toFixed(3)},${totalLess.toFixed(3)},${totalNet.toFixed(3)},\n`;
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `weighscan_${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    async function exportPDF() {
+      if (!items.length) { showToast('No items to export'); return; }
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // Header
+      doc.setFontSize(18);
+      doc.setTextColor(48, 3, 78); // var(--accent) #30034e
+      doc.text("QrScan - Scanned Items Report", 14, 20);
+
+      doc.setFontSize(10);
+      doc.setTextColor(100);
+      doc.text(`Generated on: ${new Date().toLocaleString()}`, 14, 28);
+      doc.text("Provided By Shyam Software", 14, 33);
+
+      // Identify extra fields
+      const extraFields = new Set();
+      items.forEach(item => {
+        Object.keys(item.rawData || {}).forEach(k => {
+          if (!['itemName', 'grossWeight', 'netWeight', 'lessWeight', 'tareWeight', 'skip'].includes(k)) {
+            extraFields.add(k);
+          }
+        });
+      });
+      const extraFieldsArr = Array.from(extraFields);
+
+      const getLabel = (key) => {
+        const opt = [...FIELD_OPTIONS.piece, ...FIELD_OPTIONS.box].find(o => o.value === key);
+        return opt ? opt.label : key;
+      };
+
+      // Table Data
+      const head = [["Sr", "Item Name", "Gross", "Less", "Net", "Date", ...extraFieldsArr.map(getLabel)]];
+      const body = [];
+      let totalGross = 0;
+      let totalLess = 0;
+      let totalNet = 0;
+
+      const ascendingItems = [...items].reverse();
+      ascendingItems.forEach((item, i) => {
+        const sr = i + 1;
+        totalGross += item.gross;
+        totalLess += item.less;
+        totalNet += item.net;
+
+        const row = [
+          sr,
+          item.name,
+          item.gross.toFixed(3),
+          item.less.toFixed(3),
+          item.net.toFixed(3),
+          new Date(item.scannedAt).toLocaleDateString(),
+          ...extraFieldsArr.map(f => (item.rawData && item.rawData[f]) || '')
+        ];
+        body.push(row);
+      });
+
+      // Add Total Row
+      const footer = ["", "TOTAL", totalGross.toFixed(3), totalLess.toFixed(3), totalNet.toFixed(3), "", ...extraFieldsArr.map(() => "")];
+      body.push(footer);
+
+      doc.autoTable({
+        head: head,
+        body: body,
+        startY: 40,
+        theme: 'striped',
+        headStyles: { fillColor: [48, 3, 78] },
+        didParseCell: function (data) {
+          if (data.row.index === body.length - 1) {
+            data.cell.styles.fontStyle = 'bold';
+            data.cell.styles.fillColor = [232, 245, 238]; // var(--accent-light)
+            data.cell.styles.textColor = [48, 3, 78];
+          }
+        }
+      });
+
+      const fileName = `weighscan_${new Date().toISOString().slice(0, 10)}.pdf`;
+      const pdfOutput = doc.output('blob');
+
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([pdfOutput], fileName, { type: 'application/pdf' })] })) {
+        try {
+          const file = new File([pdfOutput], fileName, { type: 'application/pdf' });
+          await navigator.share({
+            files: [file],
+            title: 'QrScan Report',
+            text: 'Here is the scanned items report from QrScan app.'
+          });
+
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            doc.save(fileName);
+
+          }
+        }
+      } else {
+        doc.save(fileName);
+
+      }
+    }
+
+
+    // ── TOAST ──
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg.startsWith('✓') ? msg : '⚠ ' + msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    function esc(s) {
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function scrollCarousel(dir) {
+      const track = document.getElementById('softwareCarousel');
+      if (track) {
+        const slideWidth = track.clientWidth;
+        track.scrollBy({ left: dir * slideWidth, behavior: 'smooth' });
+      }
+    }
+  </script>
+</body>
+
+</html>

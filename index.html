@@ -926,6 +926,49 @@ Start Call To Action
 			}
 		}
 	</script>
+
+	<!-- Organization Schema with Software Offer Catalog -->
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "Organization",
+		"name": "Shyam Software",
+		"url": "https://shyamsoftware.com",
+		"logo": "https://shyamsoftware.com/images/logo.png",
+		"address": {
+			"@type": "PostalAddress",
+			"streetAddress": "Parishram Plaza, Mangla Main Road",
+			"addressLocality": "Rajkot",
+			"addressRegion": "Gujarat",
+			"postalCode": "360001",
+			"addressCountry": "IN"
+		},
+		"hasOfferCatalog": {
+			"@type": "OfferCatalog",
+			"name": "Software Ecosystem",
+			"itemListElement": [
+				{
+					"@type": "Offer",
+					"itemOffered": {
+						"@type": "SoftwareApplication",
+						"name": "BusinessERP",
+						"url": "https://shyamsoftware.com/erp.html",
+						"operatingSystem": "Web, Windows"
+					}
+				},
+				{
+					"@type": "Offer",
+					"itemOffered": {
+						"@type": "SoftwareApplication",
+						"name": "Ecom B2B Portal",
+						"url": "https://shyamsoftware.com/ecom.html",
+						"operatingSystem": "Web"
+					}
+				}
+			]
+		}
+	}
+	</script>
 </body>
 
 </html>

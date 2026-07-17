@@ -6,6 +6,9 @@
  */
 
 /*=== MEDIA QUERY ===*/
+:root {
+  color-scheme: light;
+}
 @import url("https://fonts.googleapis.com/css?family=Catamaran:400,500,600,700,700|Source+Sans+Pro:400,600");
 body {
   line-height: 1.4;
@@ -509,13 +512,25 @@ a:focus, a:hover {
 @media (max-width: 991px) {
   .navigation {
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.06);
-    background: #fff0f5 !important; /* Light pink background for mobile */
-  }
-  .hero-area {
-    padding-top: 90px; /* Push slider down below the pink mobile header */
+    background: #ffffff !important; /* brand-consistent, matches sticky-header white */
   }
   .navigation .navbar-light .navbar-nav .nav-item .nav-link {
-    color: #000;
+    color: #000 !important;
+  }
+  .navigation .dropdown-menu {
+    background: #ffffff !important;
+    border: none;
+    box-shadow: none;
+  }
+  .navigation .dropdown-item {
+    color: #000 !important;
+  }
+  .navigation .dropdown-item:focus, .navigation .dropdown-item:hover {
+    color: #28ABE3 !important;
+    background: transparent;
+  }
+  .lang-toggle.d-lg-none {
+    color: #000 !important;
   }
   .navigation .logo-white {
     display: none;
@@ -598,7 +613,7 @@ a:focus, a:hover {
 
 /* When .hero-area is used as a slider-item, override the static background */
 .hero-slider .slider-item.hero-area {
-  background-image: none !important;
+  background-image: none;
   height: auto;
   min-height: 100vh;
   display: flex;
@@ -693,12 +708,13 @@ a:focus, a:hover {
 .hero-slider {
   overflow-x: hidden;
   overflow-y: hidden;
+  min-height: 100vh;
 }
 
 /* Slick slider track and slides must allow full height */
 .hero-slider .slick-track,
 .hero-slider .slick-list {
-  height: 100% !important;
+  height: 100%;
 }
 .hero-slider .prevArrow {
   left: -100px;
@@ -754,13 +770,13 @@ a:focus, a:hover {
 /* Mobile fix for slider items inside hero-slider */
 @media (max-width: 991px) {
   .hero-slider .slider-item.hero-area {
-    padding-top: 80px;
+    padding-top: 90px;
     padding-bottom: 60px;
   }
 }
 @media (max-width: 575px) {
   .hero-slider .slider-item.hero-area {
-    padding-top: 80px;
+    padding-top: 100px;
     padding-bottom: 80px;
   }
 }

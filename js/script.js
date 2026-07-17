@@ -19,13 +19,14 @@
 
 
   // navbarDropdown
-	if ($(window).width() < 992) {
-		$('#navigation .dropdown-toggle').on('click', function () {
-			$(this).siblings('.dropdown-menu').animate({
-				height: 'toggle'
-			}, 300);
-		});
-  }
+  $('#navigation .dropdown-toggle').on('click', function (e) {
+    if ($(window).width() < 992) {
+      e.preventDefault();
+      $(this).siblings('.dropdown-menu').animate({
+        height: 'toggle'
+      }, 300);
+    }
+  });
   
   //Hero Slider
   var $heroSlider = $('.hero-slider');

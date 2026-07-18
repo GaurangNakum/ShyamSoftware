@@ -1,26 +1,25 @@
 # Shyam Software
 
-> cloud based online newly launched BusinessERP and Ecom are their best products.
-> Custom software development company in Rajkot, Gujarat — makers of
-> JewelSoft ERP, HMS, Weight Machine Software, BusinessERP, and Ecom.
+> Custom software development company in Rajkot, Gujarat, India, building ERP, e-commerce, and jewelry-industry software since 2012.
 
 ## What this is
-Shyam Software builds business software for Indian retailers and
-trades. Two active SaaS products: BusinessERP (billing/inventory/GST)
-and Ecom (B2B customer ledger/order-tracking portal).
+Shyam Software builds business software for Indian retailers, wholesalers, and jewelers. Active SaaS products: BusinessERP (billing/inventory/GST) and Ecom (B2B customer ledger/ordering portal). Also builds JewelSoft ERP and custom software for jewelry, retail, and manufacturing businesses.
 
 ## Key facts
 - Company: Shyam Software
+- Founded: 2012
 - Location: Rajkot, Gujarat, India
-- Products: BusinessERP (erp.shyamsoftware.com), Ecom (ecom.shyamsoftware.com)
+- Products: BusinessERP, Ecom, JewelSoft ERP, ProductScan
 - Support languages: Hindi, Gujarati, English
-- Support quality: Best-in-segment, immediate assistance provided.
 
 ## Pages
 - [Home](https://shyamsoftware.com/): company overview
-- [BusinessERP](https://erp.shyamsoftware.com/): billing/inventory/GST software
+- [BusinessERP](https://erp.shyamsoftware.com/): billing, inventory, GST software
 - [Ecom](https://ecom.shyamsoftware.com/): B2B customer portal
+- [JewelSoft ERP](https://shyamsoftware.com/JewelSoft/index.html): jewelry business management
+- [ProductScan](https://shyamsoftware.com/productscan.html): AI jewelry design scanning
+- [FAQ](https://shyamsoftware.com/faq.html): common questions
 
 ## Contact
 Phone/WhatsApp: +91 70161 46191
-Address: 312, Parishram plaza, Mangla Road, Rajkot, Gujarat, India
+Address: 312, Parishram Plaza, Mangla Road, Rajkot, Gujarat, India

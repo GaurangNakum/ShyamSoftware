@@ -153,10 +153,15 @@
     }
     if ($(window).scrollTop() > oTop) {
       $('.counter').each(function () {
-        var $this = $(this),
-          countTo = $this.attr('data-count');
+        var $this = $(this);
+        if ($this.hasClass('animated')) return;
+        $this.addClass('animated');
+        
+        var countTo = $this.attr('data-count');
+        $this.text('0');
+        
         $({
-          countNum: $this.text()
+          countNum: 0
         }).animate({
           countNum: countTo
         }, {

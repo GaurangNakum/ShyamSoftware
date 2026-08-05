@@ -1210,7 +1210,7 @@
 </head>
 
 <body>
-  <!-- HEADER -->
+
   <header>
     <div class="logo-section">
       <img src="images/Logo192.png" alt="Logo" class="logo-img">
@@ -1225,28 +1225,26 @@
     </div>
   </header>
 
-  <!-- TABS -->
+
   <div class="tabs">
     <button class="tab active" data-tab="home" onclick="switchTab('home')">Home</button>
     <button class="tab" data-tab="scanner" onclick="switchTab('scanner')">Scanner</button>
   </div>
 
-  <!-- HOME TAB (OPENS FIRST) -->
+
   <div class="tab-content active" id="homeTab">
     <div class="home-page">
 
-      <!-- Section 1: Tutorial (How to use PWA) -->
+
       <a href="https://www.youtube.com/shorts/A7Tc4GRGp8Q?si=vWBZiUebScqyB2pp" target="_blank" class="guide-section">
         <div class="guide-header">
           <div class="guide-title">How to use QrScan 🚀</div>
           <div class="guide-badge">TUTORIAL</div>
         </div>
-        <!-- <div style="font-size: 14px; color: var(--sub); line-height: 1.4;">
-          Step-by-step guide to using the PWA scanner and exporting weights.
-        </div> -->
+
       </a>
 
-      <!-- Section 2: Weight Software (Software Demo) -->
+
       <a href="https://youtube.com/shorts/4ziIHvlNC0U?si=LzL94PoweZDe7VXO" target="_blank" class="guide-section">
         <div class="guide-header">
           <div class="guide-title">Explore Weight Software </div>
@@ -1266,10 +1264,10 @@
     </div>
   </div>
 
-  <!-- SCANNER TAB -->
+
   <div class="tab-content" id="scannerTab">
 
-    <!-- CAMERA -->
+
     <div class="cam-placeholder" id="camPlaceholder" onclick="startCamera()">
       <div class="cam-icon">📷</div>
       <p>Tap to start scanning</p>
@@ -1290,7 +1288,7 @@
 
     <canvas id="canvas"></canvas>
 
-    <!-- MANUAL INPUT -->
+
     <div class="manual-input-container"
       style="margin: 14px 16px 0; position: relative; display: flex; align-items: center;">
       <div
@@ -1299,7 +1297,7 @@
           <path d="M3 5h2v14H3V5zm4 0h1v14H7V5zm3 0h2v14h-2V5zm4 0h3v14h-3V5zm5 0h2v14h-2V5z" />
         </svg>
       </div>
-      <input type="text" id="manualBarcode" placeholder="Scan or enter barcode" autocomplete="off" autofocus
+      <input type="text" id="manualBarcode" placeholder="Scan or enter barcode" autocomplete="off"
         style="width: 100%; padding: 12px 46px 12px 46px; border: 1.5px solid var(--border); border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 14px; background: var(--white); color: var(--text); outline: none; box-shadow: var(--card-shadow); transition: border-color 0.2s;"
         onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
       <div
@@ -1310,7 +1308,7 @@
       </div>
     </div>
 
-    <!-- TOTAL -->
+
     <div class="total-card">
       <div class="total-info">
         <div class="total-row">
@@ -1332,13 +1330,13 @@
       </div>
     </div>
 
-    <!-- LAST SCAN -->
+
     <div class="last-scan" id="lastScan">
       <div class="ls-dot"></div>
       <div class="ls-text" id="lastScanText"></div>
     </div>
 
-    <!-- LIST -->
+
     <div class="list-header">
       <div class="list-title">Scanned Items</div>
       <div style="display: flex; gap: 8px;">
@@ -1356,7 +1354,7 @@
     </div>
   </div>
 
-  <!-- INSTALL BAR -->
+
   <div class="install-bar show" id="installBar">
     <div class="install-text">
       <strong id="installTitle">Install App</strong>
@@ -1365,7 +1363,7 @@
     <button class="install-btn" id="installBtn">Install</button>
   </div>
 
-  <!-- iOS INSTALL HELP MODAL -->
+
   <div class="modal-overlay" id="iosHelpModal" onclick="closeIosHelp(event)">
     <div class="settings-modal" onclick="event.stopPropagation()">
       <div class="modal-header">
@@ -1404,14 +1402,14 @@
     </div>
   </div>
 
-  <!-- GLOBAL STICKY FOOTER -->
+
   <div class="app-footer sticky-pos">
     Powered by <img src="images/Logo192.png" alt="Logo" class="footer-logo"><strong
       onclick="window.open('https://shyamsoftware.com', '_blank')"
       style="cursor: pointer; text-decoration: underline;">Shyam Software</strong>
   </div>
 
-  <!-- SETTINGS MODAL (POPUP) -->
+
   <div class="modal-overlay" id="settingsModal" onclick="closeSettings(event)">
     <div class="settings-modal" onclick="event.stopPropagation()">
       <div class="modal-header">
@@ -1420,7 +1418,7 @@
       </div>
 
       <div class="modal-content">
-        <!-- Scan Type -->
+
         <div class="settings-card">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
             <h3 style="margin-bottom: 0;">Item Type</h3>
@@ -1443,15 +1441,15 @@
           </div>
         </div>
 
-        <!-- Column Mapping -->
+
         <div class="settings-card">
           <h3>QR Column Mapping</h3>
           <div class="info-box">
-            Map QR format: <strong>\val1\val2\val3...</strong><br>
+            Map QR format: <strong>val1/val2/val3...</strong><br>
             Define what each column represents in your QR code.
           </div>
           <div class="column-mapping" id="columnMapping">
-            <!-- Dynamic columns will be added here -->
+
           </div>
           <button class="add-col-btn" onclick="addColumn()">
             <span>+</span> Add New Column
@@ -1468,12 +1466,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
   <script>
-    // ── SERVICE WORKER ──
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js').catch(() => { });
     }
 
-    // ── PWA INSTALL PROMPT ──
     let deferredPrompt = null;
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
@@ -1523,8 +1520,6 @@
       document.getElementById('iosHelpModal').classList.remove('show');
     }
 
-
-    // ── FIELD OPTIONS ──
     const FIELD_OPTIONS = {
       piece: [
         { value: 'batchNumber', label: 'Bar No' },
@@ -1551,7 +1546,6 @@
       ]
     };
 
-    // ── SETTINGS STATE ──
     const DEFAULT_SETTINGS = {
       scanType: 'piece',
       columnsConfig: {
@@ -1590,7 +1584,6 @@
       showToast('✓ Settings reset to default');
     }
 
-    // ── SETTINGS MODAL ──
     function openSettings() {
       document.getElementById('settingsModal').classList.add('show');
       renderColumns();
@@ -1601,7 +1594,6 @@
       document.getElementById('settingsModal').classList.remove('show');
     }
 
-    // ── LOAD SETTINGS ──
     function loadSettings() {
       try {
         const saved = localStorage.getItem('ws_settings');
@@ -1644,14 +1636,12 @@
       document.getElementById('scanTypeSelect').value = settings.scanType;
     }
 
-    // ── SAVE SETTINGS ──
     function saveSettings() {
       try {
         localStorage.setItem('ws_settings', JSON.stringify(settings));
       } catch (e) { }
     }
 
-    // ── RENDER COLUMNS ──
     function renderColumns() {
       const container = document.getElementById('columnMapping');
       const fieldOptions = FIELD_OPTIONS[settings.scanType];
@@ -1672,7 +1662,6 @@
       `).join('');
     }
 
-    // ── ADD COLUMN ──
     function addColumn() {
       const cols = settings.columnsConfig[settings.scanType] || [];
 
@@ -1685,7 +1674,6 @@
       saveSettings();
     }
 
-    // ── DELETE COLUMN ──
     function deleteColumn(id) {
       let cols = settings.columnsConfig[settings.scanType] || [];
       if (cols.length <= 1) {
@@ -1699,7 +1687,6 @@
       saveSettings();
     }
 
-    // ── UPDATE COLUMN FIELD ──
     function updateColumnField(id, field) {
       const cols = settings.columnsConfig[settings.scanType] || [];
       const col = cols.find(c => c.id === id);
@@ -1707,7 +1694,6 @@
       saveSettings();
     }
 
-    // ── UPDATE FIELD OPTIONS ──
     function updateFieldOptions() {
       settings.scanType = document.getElementById('scanTypeSelect').value;
       if (!settings.columnsConfig[settings.scanType]) {
@@ -1734,7 +1720,6 @@
       saveSettings();
     }
 
-    // ── TAB SWITCHING ──
     function switchTab(tabName) {
       // Update tab buttons
       document.querySelectorAll('.tab').forEach(t => {
@@ -1760,14 +1745,9 @@
         document.getElementById('homeTab').classList.add('active');
       } else if (tabName === 'scanner') {
         document.getElementById('scannerTab').classList.add('active');
-        const manualInput = document.getElementById('manualBarcode');
-        if (manualInput) {
-          setTimeout(() => manualInput.focus(), 100);
-        }
       }
     }
 
-    // ── INDEXEDDB STORAGE ──
     let db;
     const DB_NAME = 'WeighScanDB';
     const STORE = 'sessions';
@@ -1790,7 +1770,6 @@
         const tx = database.transaction(STORE, 'readwrite');
         tx.objectStore(STORE).put({ id: SESSION_KEY, items, savedAt: new Date().toISOString() });
       } catch (e) {
-        // fallback to sessionStorage
         try { sessionStorage.setItem('ws_items', JSON.stringify(items)); } catch (_) { }
       }
     }
@@ -1822,7 +1801,6 @@
       }
     }
 
-    // ── APP STATE ──
     let items = [];
     let scanning = false;
     let lastCode = '';
@@ -1835,7 +1813,6 @@
       render();
     })();
 
-    // ── CAMERA ──
     async function startCamera() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -1877,7 +1854,6 @@
       requestAnimationFrame(tick);
     }
 
-    // ── QR PARSING ──
     function processQR(raw) {
       const parts = raw.split('/');
       const cols = settings.columnsConfig[settings.scanType] || [];
@@ -1894,7 +1870,6 @@
         }
       });
 
-      // ── UNIQUE BAR NO CHECK ──
       if (data.batchNumber) {
         const isDuplicate = items.some(item => item.rawData && item.rawData.batchNumber === data.batchNumber);
         if (isDuplicate) {
@@ -1956,7 +1931,6 @@
       showLastScan(items[0]);
     }
 
-    // ── DELETE ITEM ──
     async function deleteItem(itemId) {
       if (!confirm('Delete this item?')) return;
 
@@ -1966,7 +1940,6 @@
       showToast('✓ Item deleted');
     }
 
-    // ── RENDER ──
     function render() {
       const totalNet = items.reduce((s, i) => s + i.net, 0);
       const totalGross = items.reduce((s, i) => s + i.gross, 0);
@@ -2034,7 +2007,6 @@
       f.classList.add('on');
     }
 
-    // ── CLEAR ──
     async function clearAll() {
       if (!items.length) return;
       if (!confirm(`Clear all ${items.length} scanned items?`)) return;
@@ -2045,7 +2017,6 @@
       render();
     }
 
-    // ── EXPORT CSV ──
     function exportCSV() {
       if (!items.length) { showToast('No items to export'); return; }
 
@@ -2201,8 +2172,6 @@
       }
     }
 
-
-    // ── TOAST ──
     function showToast(msg) {
       const t = document.getElementById('toast');
       t.textContent = (msg.startsWith('✓') || msg.startsWith('✨')) ? msg : '⚠ ' + msg;
@@ -2222,7 +2191,6 @@
       }
     }
 
-    // ── MANUAL BARCODE ──
     function processManualBarcode() {
       const input = document.getElementById('manualBarcode');
       if (!input) return;
@@ -2230,7 +2198,6 @@
       if (val) {
         processQR(val);
         input.value = '';
-        input.focus();
       }
     }
 

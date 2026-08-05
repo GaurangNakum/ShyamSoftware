@@ -1290,6 +1290,26 @@
 
     <canvas id="canvas"></canvas>
 
+    <!-- MANUAL INPUT -->
+    <div class="manual-input-container"
+      style="margin: 14px 16px 0; position: relative; display: flex; align-items: center;">
+      <div
+        style="position: absolute; left: 16px; display: flex; align-items: center; justify-content: center; color: var(--sub); pointer-events: none;">
+        <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+          <path d="M3 5h2v14H3V5zm4 0h1v14H7V5zm3 0h2v14h-2V5zm4 0h3v14h-3V5zm5 0h2v14h-2V5z" />
+        </svg>
+      </div>
+      <input type="text" id="manualBarcode" placeholder="Scan or enter barcode" autocomplete="off" autofocus
+        style="width: 100%; padding: 12px 46px 12px 46px; border: 1.5px solid var(--border); border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 14px; background: var(--white); color: var(--text); outline: none; box-shadow: var(--card-shadow); transition: border-color 0.2s;"
+        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+      <div
+        style="position: absolute; right: 16px; display: flex; align-items: center; justify-content: center; color: var(--accent); cursor: pointer; background: var(--accent-light); width: 22px; height: 22px; border-radius: 50%; font-size: 13px; font-weight: 700; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+        title="New feature: attach a barcode scanner gun to your device and scan your barcodes now too."
+        onclick="showToast('✨ New feature: attach a barcode scanner gun to your device and scan your barcodes now with gun.')">
+        ?
+      </div>
+    </div>
+
     <!-- TOTAL -->
     <div class="total-card">
       <div class="total-info">
@@ -1740,6 +1760,10 @@
         document.getElementById('homeTab').classList.add('active');
       } else if (tabName === 'scanner') {
         document.getElementById('scannerTab').classList.add('active');
+        const manualInput = document.getElementById('manualBarcode');
+        if (manualInput) {
+          setTimeout(() => manualInput.focus(), 100);
+        }
       }
     }
 
@@ -2181,7 +2205,7 @@
     // ── TOAST ──
     function showToast(msg) {
       const t = document.getElementById('toast');
-      t.textContent = msg.startsWith('✓') ? msg : '⚠ ' + msg;
+      t.textContent = (msg.startsWith('✓') || msg.startsWith('✨')) ? msg : '⚠ ' + msg;
       t.classList.add('show');
       setTimeout(() => t.classList.remove('show'), 2800);
     }
@@ -2196,6 +2220,28 @@
         const slideWidth = track.clientWidth;
         track.scrollBy({ left: dir * slideWidth, behavior: 'smooth' });
       }
+    }
+
+    // ── MANUAL BARCODE ──
+    function processManualBarcode() {
+      const input = document.getElementById('manualBarcode');
+      if (!input) return;
+      const val = input.value.trim();
+      if (val) {
+        processQR(val);
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    const manualInputEl = document.getElementById('manualBarcode');
+    if (manualInputEl) {
+      manualInputEl.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          processManualBarcode();
+        }
+      });
     }
   </script>
 </body>

@@ -17,7 +17,7 @@ Shyam Software builds business software for Indian retailers, wholesalers, and j
 - [BusinessERP](https://erp.shyamsoftware.com/): billing, inventory, GST software
 - [Ecom](https://ecom.shyamsoftware.com/): B2B customer portal
 - [JewelSoft ERP](https://shyamsoftware.com/JewelSoft/index.html): jewelry business management
-- [ProductScan](https://shyamsoftware.com/productscan.html): AI jewelry design scanning
+- [Smart AI Ornament Design Matcher](https://shyamsoftware.com/smart-ai-ornament-design-matcher.html): AI jewelry design matching
 - [FAQ](https://shyamsoftware.com/faq.html): common questions
 
 ## Contact

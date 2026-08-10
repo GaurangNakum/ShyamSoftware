@@ -21,6 +21,43 @@
 	<meta name="robots" content="index, follow">
 	<link rel="canonical" href="https://shyamsoftware.com/product.html">
 
+	<!-- JSON-LD ItemList Schema for Product Carousel -->
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "ItemList",
+		"itemListElement": [
+			{
+				"@type": "ListItem",
+				"position": 1,
+				"item": {
+					"@type": "SoftwareApplication",
+					"name": "Business ERP",
+					"url": "https://shyamsoftware.com/erp-preview.html"
+				}
+			},
+			{
+				"@type": "ListItem",
+				"position": 2,
+				"item": {
+					"@type": "SoftwareApplication",
+					"name": "B2B E-commerce App",
+					"url": "https://shyamsoftware.com/ecom-preview.html"
+				}
+			},
+			{
+				"@type": "ListItem",
+				"position": 3,
+				"item": {
+					"@type": "SoftwareApplication",
+					"name": "JewelSoft ERP",
+					"url": "https://shyamsoftware.com/JewelSoft/index.html"
+				}
+			}
+		]
+	}
+	</script>
+
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
 
@@ -186,8 +223,9 @@ Fixed Navigation
 				<div class="col-lg-3 col-md-6 mb-4">
 					<div class="service-item"
 						style="padding: 30px 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); height: 100%; border-top: 4px solid #3b82f6;">
-						<i class="tf-ion-ios-calculator-outline"
-							style="font-size: 40px; color: #3b82f6; margin-bottom: 20px; display: block;"></i>
+						<div style="height: 160px; width: 100%; margin-bottom: 20px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+							<img loading="lazy" src="images/dashboard-screen.jpg" style="width: 100%; height: 100%; object-fit: contain; padding: 8px;" alt="Business ERP Dashboard">
+						</div>
 						<h4><a href="https://erp.shyamsoftware.com" target="_blank"
 								style="color: #1e293b;">BusinessERP</a></h4>
 						<p data-lang="prod-erp-desc">Superfast online GST billing, live stock management, and direct
@@ -200,8 +238,9 @@ Fixed Navigation
 				<div class="col-lg-3 col-md-6 mb-4">
 					<div class="service-item"
 						style="padding: 30px 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); height: 100%; border-top: 4px solid #10b981;">
-						<i class="tf-ion-ios-cart-outline"
-							style="font-size: 40px; color: #10b981; margin-bottom: 20px; display: block;"></i>
+						<div style="height: 160px; width: 100%; margin-bottom: 20px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+							<img loading="lazy" src="images/ecom.png" style="width: 100%; height: 100%; object-fit: contain; padding: 8px;" alt="Ecom App Preview">
+						</div>
 						<h4><a href="ecom-preview.html" style="color: #1e293b;">Ecom</a></h4>
 						<p data-lang="prod-ecom-desc">B2B portal connecting wholesalers with retailers. Customers can
 							view their live ledger, check past bills, and clear advance payments online.</p>
@@ -213,8 +252,9 @@ Fixed Navigation
 				<div class="col-lg-3 col-md-6 mb-4">
 					<div class="service-item"
 						style="padding: 30px 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); height: 100%; border-top: 4px solid #f59e0b;">
-						<i class="tf-ion-ios-briefcase-outline"
-							style="font-size: 40px; color: #f59e0b; margin-bottom: 20px; display: block;"></i>
+						<div style="height: 160px; width: 100%; margin-bottom: 20px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+							<img loading="lazy" src="images/portfolio/portfolio-5.jpg" style="width: 100%; height: 100%; object-fit: contain; padding: 8px;" alt="JewelSoft Interface">
+						</div>
 						<h4><a href="JewelSoft/index.html" style="color: #1e293b;">JewelSoft ERP</a></h4>
 						<p data-lang="prod-jewel-desc">Complete Jewelry Business Management & Scale Integration. Manage
 							Gold, Silver, Barcode,
@@ -227,8 +267,9 @@ Fixed Navigation
 				<div class="col-lg-3 col-md-6 mb-4">
 					<div class="service-item"
 						style="padding: 30px 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(139, 92, 246, 0.15); height: 100%; border-top: 4px solid #8b5cf6;">
-						<i class="bi bi-upc-scan"
-							style="font-size: 40px; color: #8b5cf6; margin-bottom: 20px; display: block;"></i>
+						<div style="height: 160px; width: 100%; margin-bottom: 20px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+							<img loading="lazy" src="images/wax_ring.jpg" style="width: 100%; height: 100%; object-fit: contain; padding: 8px;" alt="AI Design Matcher">
+						</div>
 						<h4><a href="smart-ai-ornament-design-matcher.html" style="color: #1e293b;">Smart AI Ornament
 								Design Matcher</a></h4>
 						<p data-lang="prod-scan-desc">Smart web app for jewelry design scanning. Extract perfect
@@ -243,7 +284,28 @@ Fixed Navigation
 	</section> <!-- End section -->
 
 	<!-- Start Portfolio Section =========================================== -->
-
+	<style>
+		/* Enforce exact thumbnail heights to override Bootstrap .img-fluid's 'height: auto' which causes uneven masonry overlap */
+		.portfolio-block {
+			margin-bottom: 30px !important;
+			position: relative; /* Contain stretched link */
+		}
+		.portfolio-block img {
+			width: 100%;
+			height: 250px !important;
+			object-fit: cover;
+		}
+		/* Stretched link utility to make the entire card clickable seamlessly */
+		.stretched-link::after {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			z-index: 10;
+			content: "";
+		}
+	</style>
 	<section class="portfolio section-sm" id="portfolio">
 		<div class="container-fluid">
 			<div class="row justify-content-center">
@@ -266,7 +328,9 @@ Fixed Navigation
 
 					<div class="portfolio-filter">
 						<button type="button" data-filter="all">All</button>
-						<button type="button" data-filter="business">Customize Business ERP</button>
+						<button type="button" data-filter="business">Business ERP</button>
+						<button type="button" data-filter="ecom">Ecom</button>
+						<button type="button" data-filter="ai">Smart AI</button>
 						<button type="button" data-filter="jewelsoft">JewelSoft ERP</button>
 						<button type="button" data-filter="hms">Hospital</button>
 						<button type="button" data-filter="wms">Weight Machine Software</button>
@@ -277,200 +341,121 @@ Fixed Navigation
 							<div class="filtr-container">
 								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix, business">
 									<div class="portfolio-block">
-										<img class="img-fluid" src="images/portfolio/portfolio-1.jpg"
-											alt="Business ERP Dashboard">
+										<img loading="lazy" class="img-fluid" src="images/erp-preview.jpg" alt="Business ERP Dashboard">
 										<div class="caption">
-											<a class="search-icon" href="images/portfolio/portfolio-1.jpg"
-												data-lightbox="image-1">
-												<i class="tf-ion-ios-search-strong"></i>
-											</a>
-											<h4><a href="contact.html">Customize Business ERP</a></h4>
+											<h4><a href="erp-preview.html" class="stretched-link">Business ERP</a></h4>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix, business">
 									<div class="portfolio-block">
-										<img class="img-fluid" src="images/portfolio/portfolio-2.jpg"
-											alt="Accounting Software Interface">
+										<img loading="lazy" class="img-fluid" src="images/dashboard-screen.jpg" alt="Accounting Software Interface">
 										<div class="caption">
-											<a class="search-icon" href="images/portfolio/portfolio-2.jpg"
-												data-lightbox="image-1">
-												<i class="tf-ion-ios-search-strong"></i>
-											</a>
-											<h4><a href="contact.html">Accounting And Billing</a></h4>
+											<h4><a href="erp-preview.html" class="stretched-link">Accounting And Billing</a></h4>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix, business, ecom">
+									<div class="portfolio-block">
+										<img loading="lazy" class="img-fluid" src="images/ecom.png" alt="Manufacturing Process Flow">
+										<div class="caption">
+											<h4><a href="ecom-preview.html" class="stretched-link">Manufacturing, Retailer and Wholesaler</a></h4>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix, business">
 									<div class="portfolio-block">
-										<img class="img-fluid" src="images/portfolio/portfolio-3.jpg"
-											alt="Manufacturing Process Flow">
+										<img loading="lazy" class="img-fluid" src="images/inv_sale.png" alt="GST Invoicing and Billing">
 										<div class="caption">
-											<a class="search-icon" href="images/portfolio/portfolio-3.jpg"
-												data-lightbox="image-1">
-												<i class="tf-ion-ios-search-strong"></i>
-											</a>
-											<h4><a href="contact.html">Manufacturing, Retailer and Wholesaler</a></h4>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix, business">
-									<div class="portfolio-block">
-										<img class="img-fluid" src="images/portfolio/portfolio-4.jpg"
-											alt="Stock and Inventory Tracking">
-										<div class="caption">
-											<a class="search-icon" href="images/portfolio/portfolio-4.jpg"
-												data-lightbox="image-1">
-												<i class="tf-ion-ios-search-strong"></i>
-											</a>
-											<h4>Stock and Inventory</h4>
+											<h4><a href="erp-preview.html" class="stretched-link">GST Invoicing & Billing</a></h4>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix,jewelsoft">
 									<div class="portfolio-block">
-										<img class="img-fluid" src="images/portfolio/portfolio-5.jpg"
-											alt="JewelSoft ERP Interface">
+										<img loading="lazy" class="img-fluid" src="images/portfolio/portfolio-5.jpg" alt="JewelSoft ERP Interface">
 										<div class="caption">
-											<a class="search-icon" href="images/portfolio/portfolio-5.jpg"
-												data-lightbox="image-1">
-												<i class="tf-ion-ios-search-strong"></i>
-											</a>
-											<h4><a href="JewelSoft/index.html">Jewellers</a></h4>
+											<h4><a href="JewelSoft/index.html" class="stretched-link">Jewellers</a></h4>
 										</div>
 									</div>
 								</div>
-								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item "
-									data-category="mix,jewelsoft,business">
+								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix, ai">
 									<div class="portfolio-block">
-										<img class="img-fluid" src="images/wax_ring.jpg"
-											alt="Smart AI Ornament Design Matcher App">
+										<img loading="lazy" class="img-fluid" src="images/wax_ring.jpg" alt="Smart AI Ornament Design Matcher App">
 										<div class="caption">
-											<a class="search-icon" href="images/wax_ring.jpg" data-lightbox="image-1">
-												<i class="tf-ion-ios-search-strong"></i>
-											</a>
-											<h4><a href="smart-ai-ornament-design-matcher.html">Smart AI Ornament Design
-													Matcher App</a></h4>
+											<h4><a href="smart-ai-ornament-design-matcher.html" class="stretched-link">Smart AI Ornament Design Matcher App</a></h4>
 										</div>
 									</div>
 								</div>
-								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix,jewelsoft">
+								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix,jewelsoft,ecom">
 									<div class="portfolio-block">
-										<img class="img-fluid" src="images/portfolio/portfolio-6.jpg"
-											alt="Retail and Wholesale E-commerce">
+										<img loading="lazy" class="img-fluid" src="images/ecom_catalog.png" alt="Retail and Wholesale E-commerce">
 										<div class="caption">
-											<a class="search-icon" href="images/portfolio/portfolio-6.jpg"
-												data-lightbox="image-1">
-												<i class="tf-ion-ios-search-strong"></i>
-											</a>
-											<h4><a href="contact.html">Retailer and Wholesaler</a></h4>
+											<h4><a href="ecom-preview.html" class="stretched-link">Retailer and Wholesaler</a></h4>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix,jewelsoft">
 									<div class="portfolio-block">
-										<img class="img-fluid" src="images/portfolio/portfolio-7.jpg"
-											alt="Manufacturing Management System">
+										<img loading="lazy" class="img-fluid" src="images/portfolio/portfolio-7.jpg" alt="Manufacturing Management System">
 										<div class="caption">
-											<a class="search-icon" href="images/portfolio/portfolio-7.jpg"
-												data-lightbox="image-1">
-												<i class="tf-ion-ios-search-strong"></i>
-											</a>
-											<h4>Manufacturing Management</h4>
+											<h4><a href="contact.html" class="stretched-link">Manufacturing Management</a></h4>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix, jewelsoft">
 									<div class="portfolio-block">
-										<img class="img-fluid" src="images/portfolio/portfolio-8.jpg"
-											alt="Barcode Generation Interface">
+										<img loading="lazy" class="img-fluid" src="images/portfolio/portfolio-8.jpg" alt="Barcode Generation Interface">
 										<div class="caption">
-											<a class="search-icon" href="images/portfolio/portfolio-8.jpg"
-												data-lightbox="image-1">
-												<i class="tf-ion-ios-search-strong"></i>
-											</a>
-											<h4>Barcode Solutions</h4>
+											<h4><a href="contact.html" class="stretched-link">Barcode Solutions</a></h4>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix, hms">
 									<div class="portfolio-block">
-										<img class="img-fluid" src="images/portfolio/portfolio-9.jpg"
-											alt="Hospital Management System">
+										<img loading="lazy" class="img-fluid" src="images/portfolio/portfolio-9.jpg" alt="Hospital Management System">
 										<div class="caption">
-											<a class="search-icon" href="images/portfolio/portfolio-9.jpg"
-												data-lightbox="image-1">
-												<i class="tf-ion-ios-search-strong"></i>
-											</a>
-											<h4><a href="contact.html">Hospital Management System</a></h4>
+											<h4><a href="contact.html" class="stretched-link">Hospital Management System</a></h4>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix, hms">
 									<div class="portfolio-block">
-										<img class="img-fluid" src="images/portfolio/portfolio-10.jpg"
-											alt="Speciality Management Interface">
+										<img loading="lazy" class="img-fluid" src="images/portfolio/portfolio-10.jpg" alt="Speciality Management Interface">
 										<div class="caption">
-											<a class="search-icon" href="images/portfolio/portfolio-10.jpg"
-												data-lightbox="image-1">
-												<i class="tf-ion-ios-search-strong"></i>
-											</a>
-											<h4><a href="contact.html">Multiple Speciality Management</a></h4>
+											<h4><a href="contact.html" class="stretched-link">Multiple Speciality Management</a></h4>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix, hms">
 									<div class="portfolio-block">
-										<img class="img-fluid" src="images/portfolio/portfolio-11.jpg"
-											alt="EMR Rx Generator">
+										<img loading="lazy" class="img-fluid" src="images/portfolio/portfolio-11.jpg" alt="EMR Rx Generator">
 										<div class="caption">
-											<a class="search-icon" href="images/portfolio/portfolio-11.jpg"
-												data-lightbox="image-1">
-												<i class="tf-ion-ios-search-strong"></i>
-											</a>
-											<h4><a href="contact.html">EMR Rx Generator</a></h4>
+											<h4><a href="contact.html" class="stretched-link">EMR Rx Generator</a></h4>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix, wms">
 									<div class="portfolio-block">
-										<img class="img-fluid" src="images/portfolio/portfolio-12.jpg"
-											alt="Barcode Label Printer">
+										<img loading="lazy" class="img-fluid" src="images/portfolio/portfolio-12.jpg" alt="Barcode Label Printer">
 										<div class="caption">
-											<a class="search-icon" href="images/portfolio/portfolio-12.jpg"
-												data-lightbox="image-1">
-												<i class="tf-ion-ios-search-strong"></i>
-											</a>
-											<h4><a href="JewelSoft/index.html#brochure-weightscale">Barcode/Label
-													Printing </a></h4>
+											<h4><a href="JewelSoft/index.html#brochure-weightscale" class="stretched-link">Barcode/Label Printing </a></h4>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix, wms">
 									<div class="portfolio-block">
-										<img class="img-fluid" src="images/portfolio/portfolio-13.jpg"
-											alt="Weight Machine Integration">
+										<img loading="lazy" class="img-fluid" src="images/weight_scale.jpeg" alt="Weight Machine Integration">
 										<div class="caption">
-											<a class="search-icon" href="images/portfolio/portfolio-13.jpg"
-												data-lightbox="image-1">
-												<i class="tf-ion-ios-search-strong"></i>
-											</a>
-											<h4><a href="JewelSoft/index.html#brochure-weightscale">Weight Machine
-													Software Integrating</a></h4>
+											<h4><a href="JewelSoft/index.html#brochure-weightscale" class="stretched-link">Weight Machine Software Integrating</a></h4>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-6 col-xs-6 filtr-item " data-category="mix, wms">
 									<div class="portfolio-block">
-										<img class="img-fluid" src="images/portfolio/portfolio-14.jpg"
-											alt="Custom Software Development">
+										<img loading="lazy" class="img-fluid" src="images/portfolio/portfolio-14.jpg" alt="Custom Software Development">
 										<div class="caption">
-											<a class="search-icon" href="images/portfolio/portfolio-14.jpg"
-												data-lightbox="image-1">
-												<i class="tf-ion-ios-search-strong"></i>
-											</a>
-											<h4><a href="contact.html">As per Requirement Customization Build
-													customized Software</a></h4>
+											<h4><a href="contact.html" class="stretched-link">As per Requirement Customization Build customized Software</a></h4>
 										</div>
 									</div>
 								</div>

@@ -27,7 +27,7 @@
       }, 300);
     }
   });
-  
+
   //Hero Slider
   var $heroSlider = $('.hero-slider');
   $heroSlider.slick({
@@ -49,7 +49,7 @@
   /*	Portfolio Filtering Hook
   /* =========================================================================  */
   // filter
-  setTimeout(function(){
+  setTimeout(function () {
     var containerEl = document.querySelector('.filtr-container');
     var filterizd;
     if (containerEl) {
@@ -158,10 +158,10 @@
         var $this = $(this);
         if ($this.hasClass('animated')) return;
         $this.addClass('animated');
-        
+
         var countTo = $this.attr('data-count');
         $this.text('0');
-        
+
         $({
           countNum: 0
         }).animate({
@@ -193,4 +193,48 @@
     }
   });
 
+  /* ========================================================================= */
+  /*  Global Floating WhatsApp Widget
+  /* ========================================================================= */
+  $(document).ready(function () {
+    var waUrl = "https://wa.me/917016146191?text=Hi%20%0D%0AI%20m%20Interested%20in%20a%20Demo";
+    var waHtml = '<a href="' + waUrl + '" target="_blank" class="floating-wa-btn" aria-label="Chat on WhatsApp">' +
+      '<i class="tf-ion-social-whatsapp"></i></a>';
+
+    // Inject the HTML
+    $('body').append(waHtml);
+
+    // Inject the CSS styles
+    var waStyle = '<style>' +
+      '.floating-wa-btn {' +
+      '  position: fixed;' +
+      '  bottom: 30px;' +
+      '  right: 30px;' +
+      '  background-color: #25d366;' +
+      '  color: white !important;' +
+      '  border-radius: 50%;' +
+      '  width: 60px;' +
+      '  height: 60px;' +
+      '  display: flex;' +
+      '  align-items: center;' +
+      '  justify-content: center;' +
+      '  font-size: 35px;' +
+      '  box-shadow: 2px 2px 15px rgba(0,0,0,0.2);' +
+      '  z-index: 9999;' +
+      '  transition: transform 0.3s ease;' +
+      '  animation: pulse-wa 2s infinite;' +
+      '}' +
+      '.floating-wa-btn:hover {' +
+      '  transform: scale(1.1);' +
+      '}' +
+      '@keyframes pulse-wa {' +
+      '  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }' +
+      '  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }' +
+      '  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }' +
+      '}' +
+      '</style>';
+    $('head').append(waStyle);
+  });
+
 })(jQuery);
+

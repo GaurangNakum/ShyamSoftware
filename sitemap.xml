@@ -67,9 +67,21 @@
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://shyamsoftware.com/productscan.html</loc>
+      <loc>https://shyamsoftware.com/smart-ai-ornament-design-matcher.html</loc>
       <lastmod>2026-07-21</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://erp.shyamsoftware.com/</loc>
+      <lastmod>2026-08-10</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>1.0</priority>
+   </url>
+   <url>
+      <loc>https://ecom.shyamsoftware.com/</loc>
+      <lastmod>2026-08-10</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>1.0</priority>
    </url>
 </urlset>

@@ -2,6 +2,6 @@ RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-Redirect 301 /erp.html /erp-preview.html
-Redirect 301 /ecom.html /ecom-preview.html
-Redirect 301 /productscan.html /smart-ai-ornament-design-matcher.html
+RewriteRule ^erp\.html$ /erp-preview.html [L,R=301]
+RewriteRule ^ecom\.html$ /ecom-preview.html [L,R=301]
+RewriteRule ^productscan\.html$ /smart-ai-ornament-design-matcher.html [L,R=301]

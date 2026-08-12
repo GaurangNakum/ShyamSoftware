@@ -196,10 +196,7 @@ Fixed Navigation
 				<h3 class="logo-white" style="color:rgb(49, 112, 248);  margin-top: 0.75em;margin-left: 0;">Shyam
 					Software</h3>
 				<!-- /logo -->
-				<button class="lang-toggle d-lg-none" onclick="toggleLanguage()"
-					style="background:transparent; border:2px solid currentColor; border-radius:4px; padding:4px 10px; font-weight:bold; cursor:pointer; margin-left:auto; margin-right:15px;">
-					<span class="lang-text">अ/A</span>
-				</button>
+
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
 					aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -208,7 +205,7 @@ Fixed Navigation
 				<div class="collapse navbar-collapse" id="navigation">
 					<ul class="navbar-nav ml-auto text-center" style="font-weight: 1000;">
 						<li class="nav-item active">
-							<a class="nav-link" href="index.html">Home Page</a>
+							<a class="nav-link" href="index.html">Home</a>
 						</li>
 						<li class="nav-item ">
 							<a class="nav-link" href="about.html">About Us</a>
@@ -234,13 +231,7 @@ Fixed Navigation
 						<li class="nav-item ">
 							<a class="nav-link" href="contact.html">Contact</a>
 						</li>
-						<li class="nav-item d-none d-lg-flex"
-							style="display: flex; align-items: center; margin-left: 10px;">
-							<button class="lang-toggle nav-link" onclick="toggleLanguage()"
-								style="background:transparent; border:2px solid currentColor; border-radius:4px; padding:4px 12px; font-weight:bold; cursor:pointer; padding: 0;">
-								<span class="lang-text">अ/A</span>
-							</button>
-						</li>
+
 					</ul>
 				</div>
 			</nav>
@@ -517,7 +508,7 @@ Fixed Navigation
 						<div data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".6" class="mt-4">
 							<a href="smart-ai-ornament-design-matcher.html" class="btn btn-main"
 								style="background: #8b5cf6; border: none; padding: 12px 30px; border-radius: 30px; font-weight: bold; box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4); margin-top: 10px;"
-								data-lang="main-s5-btn1">Explore Smart AI Ornament Design Matcher</a>
+								data-lang="main-s5-btn1">Explore Smart AI</a>
 						</div>
 					</div>
 					<div class="col-lg-6 order-1 order-lg-2 mb-4 mb-lg-0" data-duration-in=".3"
@@ -656,7 +647,7 @@ Fixed Navigation
 							accuracy information from images and raw wax rings effortlessly.</p>
 						<a href="smart-ai-ornament-design-matcher.html" class="btn btn-main btn-sm mt-3"
 							style="background: #8b5cf6; border: none; padding: 8px 20px;"
-							data-lang="prod-scan-btn">Explore Smart AI Ornament Design Matcher</a>
+							data-lang="prod-scan-btn">Explore Smart AI</a>
 					</div>
 				</div>
 			</div> <!-- End row -->
@@ -889,88 +880,9 @@ Start Call To Action
 	<script src="plugins/filterizr/jquery.filterizr.min.js"></script>
 	<!-- Smooth Scroll js -->
 	<script src="plugins/smooth-scroll/smooth-scroll.min.js"></script>
-	<!-- Google Map -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"></script>
-	<script src="plugins/google-map/gmap.js"></script>
 
 	<!-- Custom js -->
 	<script src="js/script.js"></script>
-
-	<!-- Language Toggle Script -->
-	<script>
-		let currentLang = 'en';
-		const langData = {
-			hi: {
-				"main-s1-badge": "BusinessERP - सुपरफास्ट बिलिंग",
-				"main-s1-title": "सेल्स स्क्रीन & <br> <span style=\"color: #60a5fa;\">कस्टम टेम्पलेट्स के साथ GST इनवॉइस</span>",
-				"main-s1-f1": "<strong style=\"color: white;\">फास्ट बिलिंग:</strong> सेकंड में बिल बनाएं, GST अपने आप जुड़ जाए।",
-				"main-s1-f2": "<strong style=\"color: white;\">बारकोड स्कैनिंग:</strong> आसानी से ट्रैक करें और समय बचाएं।",
-				"main-s1-f3": "<strong style=\"color: white;\">प्रोफेशनल इनवॉइस:</strong> आपके बिज़नेस को प्रोफेशनल लुक देने वाले खूबसूरत डिज़ाइन।",
-				"main-s2-badge": "BusinessERP - बिज़नेस कंट्रोल रूम",
-				"main-s2-title": "डैशबोर्ड & <br> <span style=\"color: #60a5fa;\">स्टॉक मैनेजमेंट</span>",
-				"main-s2-f1": "<strong style=\"color: white;\">तुरंत मुनाफा देखें:</strong> कौन सा आइटम सबसे ज्यादा प्रॉफिट दे रहा है, एक नजर में पता करें।",
-				"main-s2-f2": "<strong style=\"color: white;\">स्टॉक की टेंशन खत्म:</strong> कम स्टॉक होते ही अलर्ट पाएं, नुकसान से बचें।",
-				"main-s2-f3": "<strong style=\"color: white;\">स्टाफ को लिमिटेड एक्सेस:</strong> कैशियर, स्टाफ, मालिक — सबका काम अलग।",
-				"main-s3-badge": "Business ERP Ecom ऐड-ऑन",
-				"main-s3-title": "B2B कस्टमर <br> <span style=\"color: #60a5fa;\">पोर्टल और कैटलॉग</span>",
-				"main-s3-f1": "<strong style=\"color: white;\">दुकान अब ऑनलाइन:</strong> अपने सभी प्रोडक्ट्स को डिजिटल कैटलॉग में सजाएं, जो सीधे Business ERP से सिंक होता है।",
-				"main-s3-f3": "<strong style=\"color: white;\">Ecom में कैटलॉग देखें:</strong> आपके होलसेलर्स और रिटेलर्स कैटलॉग देख सकते हैं और ऑर्डर प्लेस कर सकते हैं।",
-				"main-s3-f4": "<strong style=\"color: white;\">लाइव लेज़र:</strong> ग्राहक अपना लाइव स्टेटमेंट देख सकते हैं और ऑनलाइन एडवांस पेमेंट क्लियर कर सकते हैं।",
-				"main-s4-badge": "कस्टम सॉफ्टवेयर",
-				"main-s4-title": "आपके बिज़नेस के लिए <br> <span style=\"color: #60a5fa;\">कस्टमाइज़्ड सॉफ्टवेयर</span>",
-				"main-s4-f1": "<strong style=\"color: white;\">100% आपकी ज़रूरत के अनुसार:</strong> जैसा आपका बिज़नेस काम करता है, वैसा ही सॉफ्टवेयर बनवाएं।",
-				"main-s4-f2": "<strong style=\"color: white;\">डेस्कटॉप और वेब ऐप्स:</strong> तेज़, कस्टम सॉफ्टवेयर जो आपके लोकल सेटअप या ऑनलाइन के लिए बनाया गया है।",
-				"main-s4-f3": "<strong style=\"color: white;\">पूरा सपोर्ट:</strong> डिलीवरी के बाद तुरंत तकनीकी सहायता और मेंटेनेंस।",
-				"main-s4-btn1": "प्रोजेक्ट डिस्कस करें",
-				"main-s5-badge": "स्मार्ट AI ऑर्नामेंट डिज़ाइन मैचर",
-				"main-s5-title": "फोटो से रिंग डिज़ाइन मैच करें <br><span style=\"color: #a78bfa;\">तुरंत</span>",
-				"main-s5-f1": "<strong style=\"color: white;\">कैटलॉग अपलोड करें:</strong> मालिक रिंग डिज़ाइन, फाइनल फोटो और कस्टम डिटेल्स अपलोड करते हैं।",
-				"main-s5-f2": "<strong style=\"color: white;\">आसान ट्रैकिंग:</strong> कर्मचारी किसी भी रिंग (रॉ वैक्स मॉडल भी) का फोटो खींचते हैं।",
-				"main-s5-f3": "<strong style=\"color: white;\">इंस्टेंट मैच:</strong> AI तुरंत फोटो को सही डिज़ाइन से मैच करता है और जानकारी दिखाता है।",
-				"main-s5-btn1": "और जानें",
-				"prod-title": "हमारे मुख्य प्रोडक्ट्स",
-				"prod-desc": "स्थानीय दुकानों और थोक विक्रेताओं के लिए विशेष रूप से बनाए गए स्मार्ट बिज़नेस सॉफ्टवेयर।",
-				"prod-erp-desc": "सुपरफास्ट ऑनलाइन GST बिलिंग, लाइव स्टॉक मैनेजमेंट, और डायरेक्ट WhatsApp इनवॉइस। रिटेल दुकानों के लिए डिज़ाइन किया गया जो अपने कस्टम सॉफ्टवेयर का एक आसान विकल्प चाहते हैं।",
-				"prod-ecom-desc": "होलसेलर्स को रिटेलर्स से जोड़ने वाला B2B पोर्टल। ग्राहक अपना लाइव लेज़र देख सकते हैं, पिछले बिल चेक कर सकते हैं और ऑनलाइन एडवांस पेमेंट कर सकते हैं।",
-				"prod-ecom-btn": "Ecom देखें",
-				"prod-jewel-desc": "संपूर्ण ज्वेलरी बिज़नेस मैनेजमेंट और स्केल इंटीग्रेशन। सोना, चांदी, बारकोड, बिलिंग और एकाउंटिंग को आसानी से प्रबंधित करें।",
-				"prod-jewel-btn": "JewelSoft देखें",
-				"prod-scan-desc": "ज्वेलरी मैन्युफैक्चरिंग प्रोसेस ट्रैकिंग के लिए एडवांस्ड AI विज़ुअल मैचिंग।",
-				"prod-scan-btn": "और जानें"
-			}
-		};
-
-		function toggleLanguage() {
-			const elements = document.querySelectorAll('[data-lang]');
-
-			if (currentLang === 'en') {
-				elements.forEach(el => {
-					const key = el.getAttribute('data-lang');
-					if (!el.getAttribute('data-original-text')) {
-						el.setAttribute('data-original-text', el.innerHTML); // Save English
-					}
-					if (langData.hi[key]) {
-						el.innerHTML = langData.hi[key]; // Switch to Hindi
-					}
-				});
-				document.querySelectorAll('.lang-text').forEach(el => el.innerText = 'A/अ');
-				currentLang = 'hi';
-				document.documentElement.lang = 'hi';
-			} else {
-				elements.forEach(el => {
-					const original = el.getAttribute('data-original-text');
-					if (original) {
-						el.innerHTML = original; // Revert to English
-					}
-				});
-				document.querySelectorAll('.lang-text').forEach(el => el.innerText = 'अ/A');
-				currentLang = 'en';
-				document.documentElement.lang = 'en';
-			}
-		}
-	</script>
-
-
 </body>
 
 </html>

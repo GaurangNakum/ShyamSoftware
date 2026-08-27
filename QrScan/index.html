@@ -1815,9 +1815,23 @@
 
     async function startCamera() {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 }, frameRate: { ideal: 30 } }
-        });
+        let stream;
+        try {
+          // Try to force Samsung auto-focus
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: { 
+              facingMode: 'environment', 
+              width: { ideal: 1280 }, height: { ideal: 720 }, frameRate: { ideal: 30 },
+              advanced: [{ focusMode: 'continuous' }]
+            }
+          });
+        } catch (err) {
+          // Safe fallback for other devices if advanced constraint is rejected
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 }, frameRate: { ideal: 30 } }
+          });
+        }
+        
         const video = document.getElementById('video');
         video.srcObject = stream;
         await video.play();
@@ -1855,13 +1869,17 @@
 
         try {
           if (nativeScanner) {
-            const barcodes = await nativeScanner.detect(video);
+            // Circuit Breaker: If Samsung hangs for > 300ms, force an error and fallback
+            const scanPromise = nativeScanner.detect(video);
+            const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 300));
+            
+            const barcodes = await Promise.race([scanPromise, timeoutPromise]);
             if (barcodes.length > 0) {
               detectedCode = barcodes[0].rawValue;
             }
           }
         } catch (e) {
-          // Silently handle native API failure
+          // Silently handle native API failure or timeout
         }
 
         if (!detectedCode) {

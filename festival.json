@@ -1,9 +1,12 @@
 {
     "active": true,
     "id": "raksha-bandhan-2026",
+    "start_date": "2026-08-27",
+    "end_date": "2026-08-28",
     "title": "🪢 Happy Raksha Bandhan!",
     "message": "Celebrating the beautiful bond of love & protection. Wishing you and your family a joyful Raksha Bandhan from Team Shyam Software! 💐",
     "bg_color": "linear-gradient(135deg, #e91e63 0%, #ff6f00 50%, #ffc107 100%)",
     "text_color": "#ffffff",
-    "image": ""
+    "image": "https://images.unsplash.com/photo-1600123847849-011bc5a58d60?q=80&w=200&auto=format&fit=crop",
+    "audio": "https://cdn.pixabay.com/audio/2021/08/04/audio_c6ccf3232f.mp3"
 }

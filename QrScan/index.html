@@ -1830,26 +1830,65 @@
       }
     }
 
-    function tick() {
+    // ── NATIVE SCANNER ──
+    let nativeScanner = null;
+    let isDetecting = false;
+    if ('BarcodeDetector' in window) {
+      try {
+        nativeScanner = new BarcodeDetector({ formats: ['qr_code'] });
+      } catch (e) {}
+    }
+
+    async function tick() {
       if (!scanning) return;
+      if (isDetecting) {
+        requestAnimationFrame(tick);
+        return;
+      }
+      
       const video = document.getElementById('video');
       const canvas = document.getElementById('canvas');
+      
       if (video.readyState === video.HAVE_ENOUGH_DATA) {
-        const scale = 0.5;
-        canvas.width = video.videoWidth * scale;
-        canvas.height = video.videoHeight * scale;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const code = jsQR(img.data, img.width, img.height, { inversionAttempts: 'dontInvert' });
-        if (code) {
+        isDetecting = true;
+        let detectedCode = null;
+
+        try {
+          if (nativeScanner) {
+            const barcodes = await nativeScanner.detect(video);
+            if (barcodes.length > 0) {
+              detectedCode = barcodes[0].rawValue;
+            }
+          }
+        } catch (e) {
+          // Silently handle native API failure
+        }
+
+        if (!detectedCode) {
+          // Fallback to jsQR
+          try {
+            const scale = 0.5;
+            canvas.width = video.videoWidth * scale;
+            canvas.height = video.videoHeight * scale;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const jsQrResult = jsQR(img.data, img.width, img.height, { inversionAttempts: 'dontInvert' });
+            if (jsQrResult) {
+              detectedCode = jsQrResult.data;
+            }
+          } catch (e) {}
+        }
+
+        if (detectedCode) {
           const now = Date.now();
-          if (code.data !== lastCode || now - lastCodeTime > 1000) {
-            lastCode = code.data;
+          if (detectedCode !== lastCode || now - lastCodeTime > 1000) {
+            lastCode = detectedCode;
             lastCodeTime = now;
-            processQR(code.data);
+            processQR(detectedCode);
           }
         }
+        isDetecting = false;
       }
       requestAnimationFrame(tick);
     }

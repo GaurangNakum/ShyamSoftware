@@ -1,11 +1,11 @@
 {
     "active": true,
-    "id": "raksha-bandhan-2026",
-    "start_date": "2026-08-28",
-    "end_date": "2026-08-28",
-    "title": "🪢 Happy Raksha Bandhan!",
-    "message": "Celebrating the beautiful bond of love & protection. Wishing you and your family a joyful Raksha Bandhan from Team Shyam Software! 💐",
-    "bg_color": "linear-gradient(135deg, #e91e63 0%, #ff6f00 50%, #ffc107 100%)",
+    "id": "janmashtami-2026",
+    "start_date": "2026-09-04",
+    "end_date": "2026-09-07",
+    "title": "🦚 Happy Janmashtami!",
+    "message": "May Lord Krishna bless you with joy, peace, and prosperity. Wishing you and your family a very Happy Janmashtami from Team Shyam Software! 🙏",
+    "bg_color": "linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)",
     "text_color": "#ffffff",
-    "image": "https://shyamsoftware.com/images/images.jpg"
+    "image": "https://shyamsoftware.com/images/janmashtmi.jpeg"
 }

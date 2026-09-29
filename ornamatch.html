@@ -160,13 +160,38 @@
 				<div class="col-lg-6 mb-5 mb-lg-0">
 					<h1 style="font-weight: 700; color: #f8fafc; margin-bottom: 25px;">Use AI <br><span
 							style="color: #a78bfa;">To Match Ring Designs from Photos</span></h1>
-					<p style="font-size: 1.1rem; color: #94a3b8; margin-bottom: 20px; line-height: 1.8;">
-						OrnaMatch is a simple and easy web app designed specifically for the
-						jewelry
-						manufacturing industry. Extract detailed, perfectly accurate information just by taking a photo
-						of your
-						designs or raw wax rings.
+					<p style="font-size: 1.1rem; color: #94a3b8; margin-bottom: 20px; line-height: 1.8; min-height: 80px;">
+						<!-- Full Text for SEO & AI Crawlers -->
+						<span style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">
+							OrnaMatch is a simple and easy web app designed specifically for the jewelry manufacturing industry. Extract detailed, perfectly accurate information just by taking a photo of your designs or raw wax rings.
+						</span>
+						<!-- Visual Typewriter Effect -->
+						<span id="hero-typewriter" aria-hidden="true" style="color: #cbd5e1;"></span><span class="typewriter-cursor" style="color: #a78bfa; font-weight: bold;">|</span>
 					</p>
+
+					<style>
+						.typewriter-cursor { animation: blink-cursor 1s step-end infinite; }
+						@keyframes blink-cursor { 50% { opacity: 0; } }
+					</style>
+
+					<script>
+						document.addEventListener('DOMContentLoaded', function() {
+							const text = "OrnaMatch is a simple and easy web app designed specifically for the jewelry manufacturing industry. Extract detailed, perfectly accurate information just by taking a photo of your designs or raw wax rings.";
+							const typingSpeed = 25; 
+							let i = 0;
+							const target = document.getElementById('hero-typewriter');
+							
+							function typeWriter() {
+								if (i < text.length) {
+									target.innerHTML += text.charAt(i);
+									i++;
+									setTimeout(typeWriter, typingSpeed);
+								}
+							}
+							
+							setTimeout(typeWriter, 800);
+						});
+					</script>
 
 					<ul class="list-unstyled"
 						style="color: #cbd5e1; font-size: 1.05rem; line-height: 1.8; margin-bottom: 30px;">
